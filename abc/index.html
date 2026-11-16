@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="el"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><title>Πρώτη οθόνη A · B · C</title></head><body style="margin:0">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=EB+Garamond:ital@1&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#171515;--cream:#F6F2EC;--muted:#C9C1B6;--orange:#E0662F;--page:#0F0E0D;--sans:'Manrope',system-ui,sans-serif;--serif:'EB Garamond',Georgia,serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--page:#0F0E0D}}
+:root[data-theme="dark"]{--page:#0F0E0D}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--cream);font-family:var(--sans)}
+.wrap{max-width:1400px;margin:0 auto;padding:40px max(24px,env(safe-area-inset-right)) 96px max(24px,env(safe-area-inset-left))}
+h1{margin:0 0 8px;font-size:clamp(26px,3vw,38px);font-weight:800;letter-spacing:-.02em}
+.lead{margin:0 0 48px;font-size:18px;line-height:1.55;color:var(--muted);max-width:760px}
+.opt{margin:0 0 96px}
+.head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;margin:0 0 6px}
+.head h2{margin:0;font-size:26px;font-weight:800}
+.rec{background:var(--orange);color:var(--ink);font-size:14px;font-weight:800;padding:4px 10px}
+.why{margin:0 0 16px;font-size:17px;color:var(--muted);max-width:860px;line-height:1.5}
+.replay{background:none;border:1px solid rgba(255,255,255,.35);color:var(--cream);font:700 15px var(--sans);padding:8px 14px;cursor:pointer;margin:0 0 14px}
+.replay:hover{border-color:var(--orange)}
+
+/* mock first screen, everything scaled with the panel's width */
+.scr{container-type:inline-size;position:relative;overflow:hidden;aspect-ratio:16/10;background:var(--ink)}
+.bar{position:absolute;left:0;right:0;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;height:4.8cqw;padding:0 4.4cqw;background:var(--ink);color:#fff}
+.logo{line-height:1.05}
+.logo b{display:block;font-size:1.6cqw;font-weight:800}
+.logo small{display:block;font-size:.72cqw;letter-spacing:.2em;font-weight:600;margin-top:.15cqw;opacity:.8}
+.nav{display:flex;gap:2cqw;font-size:1.1cqw;font-weight:700}
+.cta{font-size:1cqw;font-weight:800;padding:.8cqw 1.3cqw;background:var(--orange);color:var(--ink)}
+.promo{position:absolute;left:0;right:0;top:4.8cqw;z-index:5;height:3cqw;display:flex;align-items:center;justify-content:center;font-size:1.1cqw;font-weight:600;gap:.6cqw;background:var(--orange);color:var(--ink)}
+.promo b{font-weight:800}
+.body{position:absolute;left:0;right:0;top:7.8cqw;bottom:0}
+.btns{display:flex;gap:1cqw;flex-wrap:wrap}
+.btn{font-size:1.15cqw;font-weight:800;padding:1.1cqw 1.6cqw;display:inline-block}
+.b1{background:var(--orange);color:var(--ink)}
+.b2{border:1px solid rgba(255,255,255,.6);color:#fff}
+
+/* A — close-up of the brushwork, pulling back to the whole painting */
+.A .pic{position:absolute;inset:0;overflow:hidden}
+.A .pic img{width:100%;height:100%;object-fit:cover;display:block;transform-origin:38% 46%;transform:scale(1)}
+.A.play .pic img{animation:pullback 6.5s cubic-bezier(.3,0,.15,1) both}
+@keyframes pullback{0%{transform:scale(4.2)}12%{transform:scale(4.2)}100%{transform:scale(1)}}
+.A .wall{position:absolute;left:0;right:0;top:46%;z-index:2;display:flex;align-items:center;justify-content:center;gap:2.2cqw;color:#fff;font-size:2.1cqw;font-weight:800;letter-spacing:-.01em;text-shadow:0 .2cqw 2cqw rgba(0,0,0,.55)}
+.A .wall span+span::before{content:'—';margin-right:2.2cqw;font-weight:500;opacity:.8}
+.A .wall .s{font-weight:600}
+.A .low{position:absolute;left:4.4cqw;bottom:3.6cqw;z-index:2;display:flex;align-items:center;gap:2cqw}
+.A .shade{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(10,9,8,.55),rgba(10,9,8,0) 30%),linear-gradient(to bottom,rgba(10,9,8,0) 36%,rgba(10,9,8,.28) 46%,rgba(10,9,8,0) 56%)}
+.A .cap{position:absolute;right:4.4cqw;bottom:4cqw;z-index:2;font-family:var(--serif);font-style:italic;font-size:1.25cqw;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.A.play .wall{animation:wallIn 6.5s ease both}
+.A.play .low,.A.play .cap{animation:lowIn 6.5s ease both}
+@keyframes wallIn{0%,8%{opacity:0;letter-spacing:.2em}30%,100%{opacity:1;letter-spacing:-.01em}}
+@keyframes lowIn{0%,80%{opacity:0;transform:translateY(1cqw)}100%{opacity:1;transform:none}}
+
+/* B — a wall of works you can drag */
+.B .top{position:absolute;left:0;right:0;top:0;height:30%;display:flex;align-items:center;justify-content:space-between;gap:3cqw;padding:0 4.4cqw}
+.B .name{margin:0;font-weight:800;font-size:5.2cqw;letter-spacing:-.035em;line-height:.95;color:#fff}
+.B .facts{margin:.8cqw 0 0;font-size:1.35cqw;font-weight:600;color:var(--cream)}
+.B .row{position:absolute;left:0;right:0;top:30%;bottom:6%;display:flex;gap:1cqw;overflow-x:auto;overflow-y:hidden;padding:0 4.4cqw;scrollbar-width:none;cursor:grab;user-select:none;-webkit-user-select:none;touch-action:pan-x}
+.B .row::-webkit-scrollbar{display:none}
+.B .row.drag{cursor:grabbing}
+.B figure{margin:0;height:100%;flex:0 0 auto;display:flex;flex-direction:column;gap:.6cqw}
+.B figure img{height:calc(100% - 2.2cqw);width:auto;display:block;pointer-events:none}
+.B figcaption{font-family:var(--serif);font-style:italic;font-size:1.15cqw;color:var(--muted);white-space:nowrap}
+.B .hint{position:absolute;right:4.4cqw;bottom:1.6cqw;font-size:1.05cqw;font-weight:700;color:var(--muted)}
+
+/* C — department list over its own work */
+.C .bg{position:absolute;inset:0}
+.C .bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s ease,transform 1.2s cubic-bezier(.2,.7,.2,1);transform:scale(1.04)}
+.C .bg img.on{opacity:1;transform:scale(1)}
+.C .shade{position:absolute;inset:0;z-index:1;background:linear-gradient(to right,rgba(10,9,8,.86) 0%,rgba(10,9,8,.7) 34%,rgba(10,9,8,0) 62%)}
+.C .list{position:absolute;left:4.4cqw;top:50%;transform:translateY(-50%);z-index:2;margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:.3cqw}
+.C .list button{all:unset;cursor:pointer;display:flex;align-items:baseline;gap:1.2cqw;font-size:3cqw;font-weight:800;letter-spacing:-.025em;line-height:1.15;color:rgba(255,255,255,.62);text-shadow:0 1px 12px rgba(0,0,0,.45);transition:color .25s}
+.C .list button small{font-size:1.1cqw;font-weight:600;letter-spacing:0;color:var(--cream);opacity:0;transform:translateX(-.6cqw);transition:opacity .25s,transform .25s}
+.C .list button.on,.C .list button:hover,.C .list button:focus-visible{color:#fff}
+.C .list button.on small{opacity:1;transform:none}
+.C .low{position:absolute;left:4.4cqw;bottom:3.6cqw;z-index:2;display:flex;align-items:center;gap:2cqw}
+.C .tag{font-size:1.35cqw;font-weight:600;color:var(--cream)}
+.C .cap{position:absolute;right:4.4cqw;bottom:4cqw;z-index:2;font-family:var(--serif);font-style:italic;font-size:1.25cqw;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+
+@media (prefers-reduced-motion:reduce){.A.play .pic img,.A.play .wall,.A.play .low,.A.play .cap{animation:none}.C .bg img{transition:opacity .2s}}
+</style>
+
+<div class="wrap">
+  <h1>Πρώτη οθόνη: A · B · C</h1>
+
+  <section class="opt">
+    <div class="head"><h2>A · Κοντινό στην πινελιά</h2></div>
+    <button type="button" class="replay" data-replay="A">▶ Ξαναπαίξε</button>
+    <div class="scr A" id="A">
+      <div class="bar"><div class="logo"><b>εργαστήρι τέχνης</b><small>ΝΑΝΤΙΑ ΑΔΑΜΟΠΟΥΛΟΥ</small></div><div class="nav"><span>Το Εργαστήρι</span><span>Τμήματα</span><span>Πρόγραμμα</span><span>Επικοινωνία</span></div><span class="cta">Κλείστε θέση · 694 726 5957</span></div>
+      <div class="promo"><b>1ο μάθημα δωρεάν</b> σε όλα τα τμήματα · 694 726 5957</div>
+      <div class="body">
+        <div class="pic"><img src="../img/5c6185af4524b058b7f7baebfa99a8ee.jpg" alt="Έργο της Νάντιας Αδαμοπούλου, 130 × 180 cm"></div>
+        <div class="shade"></div>
+        <div class="wall"><span>εργαστήρι τέχνης</span><span class="s">Άγιος Στέφανος</span><span class="s">από το 1993</span></div>
+        <div class="low"><div class="btns"><span class="btn b1">Δωρεάν δοκιμαστικό μάθημα</span><span class="btn b2">Δείτε το πρόγραμμα</span></div></div>
+        <div class="cap">Έργο της Νάντιας Αδαμοπούλου · 130 × 180 cm</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="opt">
+    <div class="head"><h2>B · Τοίχος με έργα</h2></div>
+    <div class="scr B">
+      <div class="bar"><div class="logo"><b>εργαστήρι τέχνης</b><small>ΝΑΝΤΙΑ ΑΔΑΜΟΠΟΥΛΟΥ</small></div><div class="nav"><span>Το Εργαστήρι</span><span>Τμήματα</span><span>Πρόγραμμα</span><span>Επικοινωνία</span></div><span class="cta">Κλείστε θέση · 694 726 5957</span></div>
+      <div class="promo"><b>1ο μάθημα δωρεάν</b> σε όλα τα τμήματα · 694 726 5957</div>
+      <div class="body">
+        <div class="top"><div><p class="name">εργαστήρι τέχνης</p><p class="facts">Άγιος Στέφανος · από το 1993 · από 4 ετών έως ενήλικες</p></div><div class="btns"><span class="btn b1">Δωρεάν δοκιμαστικό μάθημα</span><span class="btn b2">Δείτε το πρόγραμμα</span></div></div>
+        <div class="row" id="row" tabindex="0" aria-label="Έργα του Εργαστηρίου, σύρετε για περισσότερα"></div>
+        <span class="hint">← σύρετε →</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="opt">
+    <div class="head"><h2>C · Τμήματα με το έργο τους</h2></div>
+    <div class="scr C">
+      <div class="bar"><div class="logo"><b>εργαστήρι τέχνης</b><small>ΝΑΝΤΙΑ ΑΔΑΜΟΠΟΥΛΟΥ</small></div><div class="nav"><span>Το Εργαστήρι</span><span>Τμήματα</span><span>Πρόγραμμα</span><span>Επικοινωνία</span></div><span class="cta">Κλείστε θέση · 694 726 5957</span></div>
+      <div class="promo"><b>1ο μάθημα δωρεάν</b> σε όλα τα τμήματα · 694 726 5957</div>
+      <div class="body">
+        <div class="bg" id="cbg"></div>
+        <div class="shade"></div>
+        <ul class="list" id="clist"></ul>
+        <div class="low"><div class="btns"><span class="btn b1">Δωρεάν δοκιμαστικό μάθημα</span></div><span class="tag">Άγιος Στέφανος · από το 1993</span></div>
+        <div class="cap" id="ccap"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+(function () {
+  var reduce = false;
+  try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+
+  // A: play when scrolled into view, replay on demand
+  var A = document.getElementById('A');
+  function playA() { A.classList.remove('play'); void A.offsetWidth; A.classList.add('play'); }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { playA(); io.disconnect(); } }); }, { threshold: .5 });
+    io.observe(A);
+  } else { playA(); }
+  document.querySelector('[data-replay="A"]').addEventListener('click', playA);
+
+  // B: draggable row of works with a slow drift
+  var works = [
+    ['5c6185af4524b058b7f7baebfa99a8ee', 'Νάντια Αδαμοπούλου'], ['022916f6d76ff6ffb166cf5088a8ab9b', 'Καλών Τεχνών · έργο μαθητή'],
+    ['660ac41c38013ed07173016923425518', 'Παιδικό · έργο μαθητή'], ['2c63da6e97ec955fc0726eb509374e1d', 'Νάντια Αδαμοπούλου'],
+    ['d878f193807f6654e80380905e723224', 'Γραμμικό σχέδιο · έργο μαθητή'], ['aa2a643b25fce2211254fab49117ac27', 'Ενηλίκων · έργο μαθητή'],
+    ['61033518132d89d38e320a6585ad1106', 'Νάντια Αδαμοπούλου'], ['00832fe3b1aaa999976222f8b4eed628', 'Καλών Τεχνών · έργο μαθητή'],
+    ['7fbfdf49270116a7333698dc6f1396e8', 'Παιδικό · έργο μαθητή'], ['c4cb85f734fca9119917e8e4ad20f552', 'Νάντια Αδαμοπούλου'],
+    ['4716d51cd0f1ac72c1810efd17752ff5', 'Γραμμικό σχέδιο · έργο μαθητή'], ['e170b5a192999d29e617323774c8f5e3', 'Ενηλίκων · έργο μαθητή'],
+    ['9ed2f9927cb6c835820c9a7b021db526', 'Νάντια Αδαμοπούλου'], ['249ca3852370a21f9acb558b4cf8de5b', 'Νάντια Αδαμοπούλου'],
+    ['09a94944756566b976dee326d72e4cbd', 'Φάκελος · έργο μαθητή'], ['b54c5112bb2d4da7cfe4834cb55ac23f', 'Νάντια Αδαμοπούλου'],
+    ['58e2aa2bf8ab713ad3213637730cd688', 'Νάντια Αδαμοπούλου']
+  ];
+  var row = document.getElementById('row');
+  row.innerHTML = works.map(function (w) { return '<figure><img src="../img/' + w[0] + '.jpg" alt="' + w[1] + '" draggable="false"><figcaption>' + w[1] + '</figcaption></figure>'; }).join('');
+  var dragging = false, sx = 0, sl = 0, paused = false;
+  row.addEventListener('pointerdown', function (e) { dragging = true; sx = e.clientX; sl = row.scrollLeft; row.classList.add('drag'); row.setPointerCapture(e.pointerId); });
+  row.addEventListener('pointermove', function (e) { if (dragging) row.scrollLeft = sl - (e.clientX - sx); });
+  function stop() { dragging = false; row.classList.remove('drag'); }
+  row.addEventListener('pointerup', stop); row.addEventListener('pointercancel', stop);
+  row.addEventListener('mouseenter', function () { paused = true; }); row.addEventListener('mouseleave', function () { paused = false; });
+  row.addEventListener('focus', function () { paused = true; }); row.addEventListener('blur', function () { paused = false; });
+  if (!reduce) {
+    (function tick() {
+      if (!paused && !dragging && !document.hidden) {
+        row.scrollLeft += .5;
+        if (row.scrollLeft + row.clientWidth >= row.scrollWidth - 1) row.scrollLeft = 0;
+      }
+      requestAnimationFrame(tick);
+    })();
+  }
+
+  // C: department list that swaps the work behind it
+  var depts = [
+    ['Ελεύθερο & Γραμμικό', 'Υποψήφιοι πανελληνίων', '6d3d31765c59fb96b215b66c79cbfd16', 'Γραμμικό σχέδιο · έργο μαθητή'],
+    ['Παιδικό – Εφηβικό', 'Από 4 ετών', '660ac41c38013ed07173016923425518', 'Παιδικό – Εφηβικό · έργο μαθητή'],
+    ['Ενηλίκων', 'Ζωγραφική, σχέδιο, αγιογραφία', 'aa2a643b25fce2211254fab49117ac27', 'Ενηλίκων · έργο μαθητή'],
+    ['Καλών Τεχνών', 'Εισαγωγή στις Σχολές', '022916f6d76ff6ffb166cf5088a8ab9b', 'Καλών Τεχνών · έργο μαθητή'],
+    ['Φάκελος εξωτερικού', 'Portfolio', '09a94944756566b976dee326d72e4cbd', 'Φάκελος · έργο μαθητή'],
+    ['Νάντια Αδαμοπούλου', 'Η δασκάλα', '5c6185af4524b058b7f7baebfa99a8ee', 'Έργο της Νάντιας Αδαμοπούλου']
+  ];
+  var bg = document.getElementById('cbg'), list = document.getElementById('clist'), cap = document.getElementById('ccap');
+  bg.innerHTML = depts.map(function (d, i) { return '<img src="../img/' + d[2] + '.jpg" alt="' + d[3] + '"' + (i === 1 ? ' class="on"' : '') + '>'; }).join('');
+  list.innerHTML = depts.map(function (d, i) { return '<li><button type="button" data-i="' + i + '"' + (i === 1 ? ' class="on"' : '') + '>' + d[0] + '<small>' + d[1] + ' →</small></button></li>'; }).join('');
+  var imgs = bg.querySelectorAll('img'), btns = list.querySelectorAll('button');
+  function show(i) {
+    imgs.forEach(function (im, j) { im.classList.toggle('on', j === i); });
+    btns.forEach(function (b, j) { b.classList.toggle('on', j === i); });
+    cap.textContent = depts[i][3];
+  }
+  show(1);
+  btns.forEach(function (b) {
+    var i = Number(b.dataset.i);
+    b.addEventListener('mouseenter', function () { show(i); });
+    b.addEventListener('focus', function () { show(i); });
+    b.addEventListener('click', function () { show(i); });
+  });
+})();
+</script>
+
+</body></html>

@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="el"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><title>Εργαστήρι Τέχνης · B</title></head><body style="margin:0">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=EB+Garamond:ital,wght@0,400;1,400&family=GFS+Didot&display=swap">
+<style>
+/* Layout: the school's current page (dark menu, colour photos, cream timetable) rebuilt as a standalone page. Single committed look. */
+:root{
+  --ink:#171515; --ink2:#0D0C0B; --paper:#FFFFFF; --cream:#F6F2EC; --line:#E4DDD2;
+  --muted:#5E574E; --body:#3F3A37; --orange:#E0662F; --deep:#B4471A; --peach:#F2B48F; --warm:#F0EBE3;
+  --sans:Manrope,system-ui,-apple-system,"Segoe UI",sans-serif; --serif:"EB Garamond",Georgia,"Times New Roman",serif;
+  --gut:max(24px,env(safe-area-inset-left,0px)); --gutr:max(24px,env(safe-area-inset-right,0px));
+  --hdr:68px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:18px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--ink)}
+a{color:var(--deep)}a:hover{color:#8A3412}
+button{font:inherit}
+:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+::selection{background:var(--orange);color:#fff}
+.wrap{max-width:1360px;margin:0 auto;padding-left:var(--gut);padding-right:var(--gutr);box-sizing:border-box}
+.serif{font-family:var(--serif)}
+
+/* header */
+.hdr{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--ink);border-bottom:1px solid rgba(255,255,255,.08);color:#fff}
+.hin{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:10px}
+.logo{color:#fff;text-decoration:none;display:flex;flex-direction:column;line-height:1.1;background:none;border:0;cursor:pointer;padding:0;text-align:left}
+.logo:hover{color:#fff}
+.l1{font-size:22px;font-weight:800;letter-spacing:-.01em;white-space:nowrap}
+.l2{font-size:12px;font-weight:600;letter-spacing:.22em;color:#D9D2C8}
+.desknav{display:flex;align-items:center;gap:4px 22px}
+.navlink{position:relative;color:#fff;text-decoration:none;font-size:17px;font-weight:700;padding:14px 4px;background:none;border:0;cursor:pointer;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.navlink::after{content:'';position:absolute;left:4px;right:4px;bottom:8px;height:2px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+.navlink:hover,.navlink:focus-visible{color:#fff}
+.navlink:hover::after,.navlink:focus-visible::after{transform:scaleX(1)}
+.dd{position:relative}
+.ddpanel{position:absolute;top:100%;left:-16px;min-width:270px;background:var(--ink);border-top:3px solid var(--orange);box-shadow:0 18px 40px rgba(0,0,0,.35);padding:8px 0;display:flex;flex-direction:column;opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s,transform .2s,visibility 0s .2s}
+.dd:hover .ddpanel,.dd:focus-within .ddpanel{opacity:1;visibility:visible;transform:none;transition:opacity .2s,transform .2s}
+.chev{transition:transform .2s}
+.dd:hover .chev,.dd:focus-within .chev{transform:rotate(180deg)}
+.ddlink{display:block;color:#fff;text-decoration:none;padding:12px 20px;font-size:17px;font-weight:600}
+.ddlink:hover,.ddlink:focus-visible{background:rgba(255,255,255,.08);color:var(--peach)}
+.ctabtn{background:var(--orange);color:var(--ink);text-decoration:none;font-size:16px;font-weight:800;padding:13px 18px;transition:background .2s;white-space:nowrap;display:inline-block;border:0;cursor:pointer}
+.ctabtn:hover{background:#F2874F;color:var(--ink)}
+.ctabtn.big{font-size:17px;padding:15px 22px}
+.burger{display:none;width:48px;height:48px;background:var(--orange);border:0;cursor:pointer;align-items:center;justify-content:center}
+.mobnav{display:none;flex-direction:column;padding-bottom:20px}
+.mobnav a{color:#fff;text-decoration:none;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:19px;font-weight:700}
+@media (max-width:1300px){.desknav,.deskcta{display:none !important}.burger{display:inline-flex}.mobnav.open{display:flex}}
+
+/* heroes */
+.hero{position:relative;height:calc(100svh - var(--hdr) - env(safe-area-inset-top,0px));min-height:600px;max-height:1050px;overflow:hidden;background:var(--ink);color:#fff}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease}
+.slide img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.02);transition:transform 7s ease-out}
+.slide.on{opacity:1}
+.slide.on img{transform:scale(1.12)}
+.hgrad{position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,12,11,.45) 0%,rgba(14,12,11,.12) 32%,rgba(14,12,11,.35) 60%,rgba(14,12,11,.88) 100%)}
+.hin1{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end}
+.hin1 .wrap{width:100%;padding-bottom:40px;display:flex;flex-direction:column;gap:20px}
+.h1c{margin:0;font-size:clamp(56px,8vw,104px);font-weight:800;line-height:.9;letter-spacing:-.035em}
+.h1c em{font-family:var(--serif);font-weight:400;font-style:italic;letter-spacing:-.01em;font-size:1.15em;color:var(--peach)}
+.hsub{margin:0;font-size:clamp(17px,1.6vw,21px);line-height:1.5;max-width:560px;color:var(--warm)}
+.hbtns{display:flex;flex-wrap:wrap;align-items:center;gap:10px 12px}
+.ghostbtn{color:#fff;text-decoration:none;font-size:17px;font-weight:800;padding:14px 20px;border:1px solid rgba(255,255,255,.55);background:none;cursor:pointer;transition:background .2s,color .2s}
+.ghostbtn:hover{background:#fff;color:var(--ink)}
+.hcap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding-top:20px;border-top:1px solid rgba(255,255,255,.3)}
+.hcap .t{font-size:16px;color:#D9D2C8}
+.hcap em{font-family:var(--serif);font-size:19px;color:#fff}
+.dots{display:flex;align-items:center}
+.dotbtn{width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:none;border:0;cursor:pointer;padding:0}
+.dot{width:11px;height:11px;border-radius:50%;border:2px solid #fff;display:block}
+.dot.on{background:#fff}
+.mhin{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,9,8,.55) 0%,rgba(10,9,8,.34) 45%,rgba(10,9,8,.2) 62%,rgba(10,9,8,.68) 100%)}
+.mhin .wrap{height:100%;padding-top:5vh;padding-bottom:44px;display:flex;flex-direction:column;justify-content:space-between;gap:24px}
+.mword{margin:0;font-weight:800;line-height:.88;letter-spacing:-.04em;font-size:clamp(64px,14vw,210px)}
+.mw1{display:block;animation:mtrack 2s ease both}
+.mw2{display:block;font-family:var(--serif);font-weight:400;font-style:italic;color:var(--cream);font-size:.9em;letter-spacing:-.01em;margin:-.02em 0 0 30%;text-shadow:0 0 40px rgba(10,9,8,.45);animation:mup 1.6s ease .9s both}
+@keyframes mtrack{from{opacity:0;letter-spacing:.3em}to{opacity:1;letter-spacing:-.04em}}
+@keyframes mup{from{opacity:0;transform:translateY(40%)}to{opacity:1;transform:none}}
+.mmeta{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px 48px}
+@media (max-width:760px){.mw2{margin-left:18%}}
+/* Αρχική 3: split, name on dark, painting untouched */
+.hero.split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+.sptext{display:flex;flex-direction:column;justify-content:space-between;gap:32px;padding:clamp(40px,8vh,96px) clamp(24px,3.5vw,56px) 28px max(var(--gut),calc((100vw - 1360px) / 2 + var(--gut)))}
+.spin{display:flex;flex-direction:column;gap:20px}
+.spword{margin:0;font-family:'GFS Didot',var(--serif);font-weight:400;font-size:clamp(52px,6vw,104px);line-height:.98;letter-spacing:-.02em}
+.spsub{margin:0;font-size:19px;font-weight:700;line-height:1.45}
+.spdesc{margin:0;font-size:19px;line-height:1.6;color:var(--warm);max-width:440px}
+.sppic{position:relative;overflow:hidden;background:#0f0e0d}
+.sslide img{transform:none !important;transition:none}
+.spcap{border-top-color:rgba(255,255,255,.18)}
+@media (max-width:760px){.hero.split{grid-template-columns:minmax(0,1fr);height:auto;min-height:0;max-height:none}.sptext{padding:40px var(--gutr) 24px var(--gut)}.sppic{aspect-ratio:4/5}}
+
+/* strips */
+.soc{color:var(--warm);text-decoration:none;width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;transition:color .2s,transform .2s}
+.soc svg{width:24px;height:24px}
+.soc:hover{color:var(--peach);transform:translateY(-2px)}
+.facts{background:var(--ink2);color:#fff;border-top:1px solid rgba(255,255,255,.08)}
+.factgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.fact{padding:26px 24px 28px 0;display:flex;flex-direction:column;gap:6px;min-width:0}
+.fact+.fact{border-left:1px solid rgba(255,255,255,.12);padding-left:24px}
+.fn{font-family:var(--serif);font-size:42px;line-height:1;color:var(--peach)}
+.fl{font-size:16px;line-height:1.5;color:#CFC7BB}
+@media (max-width:900px){.factgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.fact:nth-child(3){border-left:0;padding-left:0}.fact:nth-child(n+3){border-top:1px solid rgba(255,255,255,.12)}}
+
+/* tiles */
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:6px;background:var(--ink)}
+.tile{position:relative;display:block;overflow:hidden;aspect-ratio:1/1;color:#fff;text-decoration:none;background:#2A2624;border:0;padding:0;cursor:pointer;text-align:left;max-width:100%}
+.tile.wide{grid-column:span 2;aspect-ratio:auto}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.tile:hover img{transform:scale(1.05)}
+.tile:hover,.tile:focus-visible{color:#fff}
+.tile:focus-visible{outline:3px solid var(--orange);outline-offset:-3px}
+.tshade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,12,11,.72) 0%,rgba(14,12,11,.35) 22%,rgba(14,12,11,0) 42%)}
+.ttext{position:absolute;top:22px;left:22px;right:22px;display:flex;flex-direction:column;gap:6px}
+.tname{font-size:24px;font-weight:800;letter-spacing:-.01em;line-height:1.15;text-shadow:0 1px 10px rgba(0,0,0,.45)}
+.tmore{font-size:16px;font-weight:600;display:inline-flex;align-items:center;gap:8px;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.tmore span{transition:transform .2s}
+.tile:hover .tmore span{transform:translateX(4px)}
+.tcredit{position:absolute;right:14px;bottom:10px;font-family:var(--serif);font-style:italic;font-size:16px;color:#fff;text-shadow:1px 1px 3px #000}
+@media (max-width:900px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.tile.wide{aspect-ratio:2/1}}
+@media (max-width:520px){.tiles{grid-template-columns:minmax(0,1fr)}.tile,.tile.wide{grid-column:auto;aspect-ratio:4/3}}
+
+/* timetable */
+.prog{background:var(--cream);color:var(--ink);scroll-margin-top:calc(var(--hdr) + 8px)}
+.prog .wrap{padding-block:44px 48px;display:flex;flex-direction:column;gap:24px}
+.days{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+@media (min-width:1000px){.days{grid-template-columns:1fr 1fr 1.3fr}}
+.daycol{padding:24px 26px 26px;display:flex;flex-direction:column;gap:16px;min-width:0;border:1px solid #D6CBBB;border-radius:16px;transition:transform .3s cubic-bezier(.2,.7,.2,1),border-color .3s ease,background-color .3s ease,box-shadow .3s ease}
+.daycol:hover{transform:translateY(-4px);border-color:var(--deep);background:#FBF8F3;box-shadow:0 16px 30px -22px rgba(23,21,21,.45)}
+.nw{white-space:nowrap}
+@media (prefers-reduced-motion:reduce){.daycol:hover{transform:none}}
+.dlbl{font-size:15px;font-weight:800;letter-spacing:.16em;color:var(--deep)}
+.slot{display:flex;flex-direction:column;gap:3px}
+.slot b{font-size:19px;font-weight:800;font-variant-numeric:tabular-nums}
+.slot span{font-size:16px;line-height:1.5;color:var(--body)}
+
+/* bands */
+.band{position:relative;overflow:hidden;background:var(--ink);min-height:720px;scroll-margin-top:var(--hdr)}
+.scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,12,11,.93) 0%,rgba(14,12,11,.8) 40%,rgba(14,12,11,.28) 74%,rgba(14,12,11,.12) 100%)}
+.band.rev .scrim{background:linear-gradient(270deg,rgba(14,12,11,.93) 0%,rgba(14,12,11,.8) 40%,rgba(14,12,11,.28) 74%,rgba(14,12,11,.12) 100%)}
+.bandin{position:relative;padding-block:128px;display:flex;color:#fff}
+.band.rev .bandin{justify-content:flex-end}
+.col{width:100%;max-width:640px;display:flex;flex-direction:column;gap:22px;min-width:0}
+.eyebrow{display:flex;align-items:center;gap:14px;font-size:13px;font-weight:800;letter-spacing:.2em;color:var(--peach)}
+.eyebrow i{width:40px;height:1px;background:currentColor;display:block}
+.tfacts{margin:0;font-size:19px;font-weight:700;line-height:1.4;color:var(--warm)}
+.bh2{margin:0;font-size:clamp(34px,4vw,54px);font-weight:800;letter-spacing:-.025em;line-height:1.04;text-wrap:balance}
+.lead{margin:0;font-size:20px;line-height:1.8;color:#EEE8DF}
+.count{position:absolute;right:var(--gutr);bottom:22px;font-size:13px;font-weight:700;letter-spacing:.2em;color:rgba(255,255,255,.75)}
+.band.rev .count,.fband.rev .count{right:auto;left:var(--gut)}
+.band.plain{background:var(--cream);min-height:0}
+.band.plain .scrim,.band.plain .count{display:none}
+.band.plain .bandin{justify-content:flex-start;color:var(--ink);padding-block:112px}
+.band.plain .col{max-width:760px}
+.band.plain .eyebrow{color:var(--deep)}
+.band.plain .lead{color:var(--body)}
+.band.plain .morehint{color:var(--muted)}
+.morebtn{background:var(--orange);color:var(--ink);border:0;cursor:pointer;padding:15px 24px;font-size:17px;font-weight:800;display:inline-flex;align-items:center;gap:10px;transition:background .2s}
+.morebtn:hover{background:#F2874F}
+.morebtn span{transition:transform .2s}
+.morebtn:hover span{transform:translateX(4px)}
+.morehint{font-size:16px;color:rgba(255,255,255,.72);align-self:center}
+.fband{position:relative;overflow:hidden;background:var(--ink);min-height:800px;scroll-margin-top:var(--hdr)}
+.fscrim{position:absolute;inset:0;background:rgba(14,12,11,.22)}
+.fin{position:relative;padding-block:112px;display:flex}
+.fband.rev .fin{justify-content:flex-end}
+.fpanel{width:100%;max-width:620px;box-sizing:border-box;background:rgba(17,15,14,.86);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#fff;padding:44px 44px 40px;display:flex;flex-direction:column;gap:20px;min-width:0}
+.fpanel .lead{font-size:19px}
+@media (max-width:760px){.band,.fband{min-height:0}.scrim,.band.rev .scrim{background:rgba(14,12,11,.8)}.bandin,.fin{padding-block:72px}.fpanel{padding:28px 22px}.count{display:none}}
+.more summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;padding:12px 0;font-size:17px;font-weight:800;color:var(--peach)}
+.more summary::-webkit-details-marker{display:none}
+.more summary .chev{transition:transform .25s ease}
+.more[open] summary .chev{transform:rotate(180deg)}
+.more .lbl-less{display:none}
+.more[open] .lbl-more{display:none}
+.more[open] .lbl-less{display:inline}
+.more .body{display:flex;flex-direction:column;gap:16px;padding-top:6px;animation:open .35s ease both}
+.band.plain .more summary{color:var(--deep)}
+@keyframes open{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+
+/* detail page */
+.pagefade{animation:pf .45s ease both}
+@keyframes pf{from{opacity:0}to{opacity:1}}
+.dhero{position:relative;overflow:hidden;background:var(--ink);color:#fff;min-height:540px;display:flex;align-items:flex-end}
+.dhero.plain{background:var(--cream);color:var(--ink);min-height:400px}
+.dscrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,12,11,.4) 0%,rgba(14,12,11,.2) 40%,rgba(14,12,11,.88) 100%)}
+.dhero.plain .dscrim{display:none}
+.dheroin{position:relative;width:100%;padding-block:64px 52px;display:flex;flex-direction:column;gap:18px}
+.dhero.plain .eyebrow{color:var(--deep)}
+.back{align-self:flex-start;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.35);color:inherit;padding:10px 16px;cursor:pointer;font-size:16px;font-weight:700}
+.dhero.plain .back{background:#fff;border-color:#D9D2C8}
+.dh1{margin:0;font-size:clamp(40px,5.4vw,72px);font-weight:800;letter-spacing:-.03em;line-height:1;max-width:1000px;text-wrap:balance}
+.dbody{padding-block:80px 64px;display:flex;flex-wrap:wrap;gap:48px 80px;align-items:flex-start}
+.dtext{flex:1.6 1 520px;min-width:0;display:flex;flex-direction:column;gap:22px;font-size:20px;line-height:1.85;color:#2E2A27}
+.dtext p{margin:0}
+.dtext .first{font-size:21px;line-height:1.6;font-weight:600;color:var(--ink)}
+.aside{flex:1 1 300px;min-width:0;position:sticky;top:calc(var(--hdr) + 24px);display:flex;flex-direction:column;gap:16px}
+.abox{background:var(--ink);color:#fff;border-top:3px solid var(--orange);padding:26px 28px;display:flex;flex-direction:column;gap:10px;font-size:18px;line-height:1.7}
+.albl{font-size:12px;font-weight:800;letter-spacing:.2em;color:var(--orange)}
+.xbox{background:var(--cream);padding:24px 26px;display:flex;flex-direction:column;gap:10px}
+.xbox ul{margin:0;padding-left:18px;font-size:17px;line-height:1.9;color:var(--body)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px 12px}
+.thumb{background:none;border:0;padding:0;cursor:zoom-in;display:flex;flex-direction:column;gap:8px;text-align:left;min-width:0}
+.thumb .im{overflow:hidden;display:block;background:#EFEAE2}
+.thumb img{width:100%;height:260px;object-fit:cover;display:block;transition:transform .5s ease}
+.thumb:hover img{transform:scale(1.04)}
+.cap{font-family:var(--serif);font-style:italic;font-size:17px;color:#7A726A;line-height:1.35}
+.note{margin:20px 0 0;padding:16px;border:1px dashed #B9B1A4;font-size:16px;color:var(--muted)}
+.chip{background:#fff;border:1px solid #D9D2C8;cursor:pointer;padding:14px 20px;font-size:17px;font-weight:700;color:var(--ink);transition:border-color .2s}
+.chip:hover{border-color:var(--orange)}
+
+/* contact, footer */
+.contact{background:var(--ink);color:#fff;scroll-margin-top:var(--hdr)}
+.cin{padding-block:96px;display:flex;flex-wrap:wrap;gap:48px}
+.cin > div{flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:18px}
+.ch2{margin:0;font-size:clamp(40px,4.4vw,56px);font-weight:800;letter-spacing:-.02em}
+.phones{margin:0;font-size:20px;line-height:1.9;font-weight:700}
+.phones a,.msg{color:var(--peach)}
+.msgrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;font-size:17px;color:#BDB6AC}
+.msg{font-weight:800;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
+.msg:hover{color:#fff}
+.foot{background:var(--ink2);color:#9C958B}
+.foot .wrap{padding-block:28px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 24px;font-size:15px}
+.foot a{color:#9C958B}
+/* free-lesson strip */
+.promo{background:var(--orange);color:var(--ink)}
+.promo .wrap{padding-block:10px;display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:4px 10px;font-size:17px;font-weight:600;text-align:center}
+.promo b{font-weight:800}
+.promo a{color:var(--ink);font-weight:800;text-decoration:underline;text-underline-offset:3px}
+.progx{margin:0;font-size:17px;color:var(--body)}
+@media (max-width:760px){.onlyd{display:none !important}.dots{display:none}}
+.foot .ctrl{flex-basis:100%;margin:0}
+/* round-2 fixes */
+.tline{font-size:17px;font-weight:600;line-height:1.35;max-width:30ch;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+.spwho{margin:0;font-size:19px;font-weight:700;line-height:1.45}
+.cfree{margin:0;font-size:20px;line-height:1.5;color:#fff}
+.count{display:none !important}
+@media (max-width:760px){.sppic{order:-1;aspect-ratio:3/2}}
+
+
+/* option switcher: small floating pill, not a bar */
+.sw{position:fixed;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:50;background:rgba(237,234,228,.96);color:var(--ink);border:1px solid #CFC7BB;box-shadow:0 10px 30px rgba(0,0,0,.25);display:flex;align-items:center;gap:6px 14px;flex-wrap:wrap;padding:8px 10px 8px 14px;font-family:system-ui,sans-serif;max-width:calc(100vw - 32px);box-sizing:border-box}
+.sw .g{display:flex;align-items:center;gap:4px}
+.sw .gl{font-size:12px;font-weight:700;margin-right:4px}
+.vbtn{min-width:34px;height:30px;padding:0 10px;background:#fff;color:var(--ink);border:1px solid #B9B1A4;cursor:pointer;font-size:13px;font-weight:800}
+.vbtn:hover{border-color:var(--ink)}
+.vbtn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.swx{width:30px;height:30px;border:0;background:none;cursor:pointer;font-size:18px;line-height:1;color:var(--muted)}
+.swopen{position:fixed;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:50;background:var(--ink);color:#fff;border:1px solid rgba(255,255,255,.3);padding:8px 12px;font-size:12px;font-weight:800;letter-spacing:.08em;cursor:pointer;font-family:system-ui,sans-serif}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:80;background:rgba(15,13,12,.95);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:calc(24px + env(safe-area-inset-top,0px)) 24px calc(24px + env(safe-area-inset-bottom,0px))}
+.lb img{max-width:100%;max-height:82vh;object-fit:contain;display:block}
+.lb .cap{color:#CFC7BB;font-size:19px;text-align:center}
+.lbx{position:absolute;top:calc(16px + env(safe-area-inset-top,0px));right:calc(16px + env(safe-area-inset-right,0px));width:48px;height:48px;background:#fff;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.lbn{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:64px;background:rgba(255,255,255,.12);border:0;color:#fff;font-size:26px;cursor:pointer}
+.lbn:hover{background:rgba(255,255,255,.25)}
+.lbp{left:calc(12px + env(safe-area-inset-left,0px))}.lbnx{right:calc(12px + env(safe-area-inset-right,0px))}
+
+@supports (animation-timeline: view()){
+  .rv{animation:rise linear both;animation-timeline:view();animation-range:entry 0% cover 25%}
+  @keyframes rise{from{opacity:.001;transform:translateY(16px)}to{opacity:1;transform:none}}
+}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .slide.on img{transform:none}
+}
+</style>
+
+<div id="app"></div>
+
+<script>
+(function () {
+  'use strict';
+  var esc = function (s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); };
+  var store = { get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
+  var state = { idx: 0, page: 'home', lb: null, layout: '1', hero: '3', navOpen: false, sw: false };
+  var self = { state: state, setState: function () {} };
+
+  // ---- content data (same as the design mockup; texts from the school's content file) ----
+  var data = (function () {
+    const B = '../img/';
+    const pic = (id, alt) => ({ src: B + id + '.jpg', alt: alt });
+    const slideData = [
+      ['249ca3852370a21f9acb558b4cf8de5b', 'Έργο της Νάντιας Αδαμοπούλου', '150 × 200 cm'],
+      ['022916f6d76ff6ffb166cf5088a8ab9b', 'Τμήμα Καλών Τεχνών', 'έργο μαθητή'],
+      ['660ac41c38013ed07173016923425518', 'Παιδικό – Εφηβικό τμήμα', 'έργο μαθητή'],
+      ['d878f193807f6654e80380905e723224', 'Ελεύθερο – Γραμμικό σχέδιο', 'έργο μαθητή'],
+      ['aa2a643b25fce2211254fab49117ac27', 'Τμήμα Ενηλίκων', 'έργο μαθητή'],
+      ['5c6185af4524b058b7f7baebfa99a8ee', 'Έργο της Νάντιας Αδαμοπούλου', '130 × 180 cm'],
+      ['00832fe3b1aaa999976222f8b4eed628', 'Τμήμα Καλών Τεχνών', 'έργο μαθητή'],
+      ['7fbfdf49270116a7333698dc6f1396e8', 'Παιδικό – Εφηβικό τμήμα', 'έργο μαθητή'],
+      ['4716d51cd0f1ac72c1810efd17752ff5', 'Ελεύθερο – Γραμμικό σχέδιο', 'έργο μαθητή'],
+      ['e170b5a192999d29e617323774c8f5e3', 'Τμήμα Ενηλίκων', 'έργο μαθητή']
+    ];
+    const tick = this.state.idx;
+    const idx = tick % 10;
+    const slides = slideData.map((d, i) => ({
+      src: B + d[0] + '.jpg', alt: d[1], cap: d[2], n: i + 1,
+      on: i === idx ? 'on' : '', hidden: i === idx ? 'false' : 'true', current: i === idx ? 'true' : 'false',
+      pick: () => self.setState({ idx: tick - idx + i })
+    }));
+    const consent = 'Οι φωτογραφίες του τμήματος δείχνουν μαθητές (και παιδιά): μπαίνουν στο site μόνο με γραπτή συναίνεση. Στο mockup δεν εμφανίζονται.';
+    const galleries = {
+      studio: { title: 'Φωτογραφίες του Εργαστηρίου', items: [pic('b3d4edf787024794af754c45ec0e82fa', 'Η βιτρίνα του Εργαστηρίου')], note: 'Οι υπόλοιπες φωτογραφίες του χώρου δείχνουν μαθητές και παιδιά — χρειάζεται συναίνεση πριν μπουν στο site.' },
+      free: { title: 'Έργα ελευθέρου σχεδίου', items: [pic('46456967266bca58e1ac2ad15281c59a', 'Σχέδιο: καρέκλα'), pic('aa7f039d4a4cd8872d73fac0fe79905b', 'Σχέδιο: νεκρή φύση'), pic('0b8c1d2bd8e5c866d35299712d70ad24', 'Σχέδιο: σκαμπό με φακό'), pic('13204fb2ca0f3b1a44e0e527d5367e01', 'Σχέδιο: σκαμπό με σχοινί')], note: '' },
+      linear: { title: 'Έργα γραμμικού σχεδίου', items: [pic('d878f193807f6654e80380905e723224', 'Γραμμικό σχέδιο'), pic('4716d51cd0f1ac72c1810efd17752ff5', 'Γραμμικό σχέδιο'), pic('6d3d31765c59fb96b215b66c79cbfd16', 'Γραμμικό σχέδιο')], note: '' },
+      sxedioClass: { title: 'Φωτογραφίες του τμήματος Ελεύθερου &amp; Γραμμικού', items: [], note: consent },
+      kids: { title: 'Έργα του Παιδικού – Εφηβικού τμήματος', items: [pic('660ac41c38013ed07173016923425518', 'Έργο παιδιού'), pic('7fbfdf49270116a7333698dc6f1396e8', 'Έργο παιδιού'), pic('75780533a97af3312ba732a9b4f10a27', 'Έργο παιδιού'), pic('e2e67921935ed905ee409b943e508b81', 'Έργο παιδιού'), pic('60281dfe2baf9448c37703cd33644c0e', 'Έργο παιδιού'), pic('3dcbf6bff2953394761edd0914767939', 'Έργο παιδιού'), pic('c31bc084c328ce9269d9397f041bcbcf', 'Έργο παιδιού'), pic('f8405f56fd3c7b753b930336f982ab69', 'Έργο παιδιού'), pic('a1d263d9167a45890fe3e44bfad86748', 'Έργο παιδιού')], note: '' },
+      kidsClass: { title: 'Φωτογραφίες του Παιδικού – Εφηβικού τμήματος', items: [], note: consent },
+      adults: { title: 'Έργα και φωτογραφίες του τμήματος Ενηλίκων', items: [pic('aa2a643b25fce2211254fab49117ac27', 'Έργο, τμήμα Ενηλίκων'), pic('e170b5a192999d29e617323774c8f5e3', 'Έργο, τμήμα Ενηλίκων'), pic('e1e57815ba8d4c353f3aa8de197611ca', 'Έργο, τμήμα Ενηλίκων')], note: '' },
+      kalon: { title: 'Έργα και φωτογραφίες του τμήματος Καλών Τεχνών', items: [pic('022916f6d76ff6ffb166cf5088a8ab9b', 'Έργο, τμήμα Καλών Τεχνών'), pic('00832fe3b1aaa999976222f8b4eed628', 'Έργο, τμήμα Καλών Τεχνών'), pic('09a94944756566b976dee326d72e4cbd', 'Έργο, τμήμα Καλών Τεχνών')], note: '' },
+      nadia: { title: 'Έργα της Νάντιας Αδαμοπούλου', items: [pic('1a326213ba1bf351658b2c9c12c227d9', '150 × 200 cm'), pic('3217043e5218a051e094132efcb1faa2', '130 × 180 cm'), pic('d63e4484bf1f433a920e764de803cc18', '90 × 130 cm'), pic('f6fab627ffa5cb381bc2109db0fee2f6', '130 × 90 cm'), pic('a0fdc384aa00a9590a2a7fdc474a3788', '120 × 180 cm'), pic('246ad2ffbb4e849ed11dfb11d6fb1e77', '150 × 90 cm'), pic('03f5d74beb9147be058a98e16eb3f5a9', '150 × 200 cm'), pic('43b521631a45de3ac4189e5f8c62fb42', '150 × 100 cm'), pic('dc24854c88b89b5ec7b2c83f8f8b7c65', '60 × 60 cm')], note: 'Φωτογραφίες έργων: Spiridon Kotsiopoulos' }
+    };
+    const link = (label, key) => ({ label: label, open: () => self.setState({ gal: key }) });
+    const sec = (o) => Object.assign({ more: [], links: [], when: '' }, o);
+    const sections = [
+      sec({ id: 'ergastiri', num: '01', title: 'Το Εργαστήρι', img: B + '022916f6d76ff6ffb166cf5088a8ab9b.jpg', imgAlt: 'Έργο μαθητή του Εργαστηρίου',
+        lead: 'Ιδρύοντας το 1993 το Εργαστήρι Τέχνης στον Άγιο Στέφανο, στόχος ήταν η δημιουργία ενός ζωντανού κυττάρου τέχνης που θα εξέφραζε απόλυτα τη διαφορετική στάση ζωής που είναι αυτονόητη για κάθε πραγματικό καλλιτέχνη. Ένα χώρο μαθητείας που θα ολοκλήρωνε την αποστολή του καλλιτέχνη όχι μόνο μέσω της αναγκαστικά μοναχικής καλλιτεχνικής δημιουργίας αλλά και μέσω της διαδραστικής συμμετοχικής διδασκαλίας.',
+        more: [
+          'Μια νησίδα μέσα στο χάος της εμπορευματοποίησης, της αποξένωσης και της αδιαφορίας, όπου ο μαθητής θα βρίσκει όχι μόνο μια σωστή καθοδήγηση για την κατάκτηση του αντικειμένου που διδάσκεται αλλά θα βιώνει και το ζωντανό παράδειγμα μιας διαφορετικής επικοινωνίας σε ανθρώπινο επίπεδο.',
+          'Μιας επικοινωνίας που την χαρακτηρίζει η έγνοια του καθενός μας για τον άλλον είτε αυτός είναι μικρό παιδί είτε ο αγχωμένος για τις εξετάσεις του και πιεσμένος από το ασφυκτικό του πρόγραμμα έφηβος είτε ο ενήλικας που αποζητά στο περιθώριο των άλλων υποχρεώσεών του να βρει τη μαγική ψυχική και πνευματική ανακούφιση που προσφέρει η ενασχόληση με την Τέχνη.',
+          'Οι στενοί δεσμοί που παρέμειναν αναλλοίωτοι όλα αυτά τα χρόνια με τους χιλιάδες μαθητές του Εργαστηρίου είναι η σημαντικότερη ανταμοιβή μας. Ιδιαίτερη χαρά αντλούμε από την επιτυχημένη φοιτητική και επαγγελματική πορεία των παιδιών που πέτυχαν στις εξετάσεις για την τριτοβάθμια εκπαίδευση και προετοιμάστηκαν στο Εργαστήρι. Πολλά από αυτά ήταν μαθητές του Εργαστηρίου από το παιδικό τμήμα, απόδειξη ότι η διδασκαλία της Τέχνης όταν γίνεται υπεύθυνα αποδίδει καρπούς και αλλάζει πραγματικά τη ζωή των ανθρώπων.'
+        ],
+        links: [link('Δείτε φωτογραφίες του Εργαστηρίου', 'studio')] }),
+      sec({ id: 'sxedio', num: '02', title: 'Τμήμα Ελεύθερου και Γραμμικού Σχεδίου', img: B + '6d3d31765c59fb96b215b66c79cbfd16.jpg', imgAlt: 'Έργο μαθητή, γραμμικό σχέδιο',
+        lead: 'Κάθε εκπαιδευτική διαδικασία αποτελεί συγκερασμό του γνωστικού με το συναισθηματικό στοιχεία. Αυτό γίνεται ιδιαιτέρως αισθητό στην απαιτητική διαδικασία συμμετοχής στις πανελλήνιες εξετάσεις για την εισαγωγή στην τριτοβάθμια εκπαίδευση (Σχολές Αρχιτεκτονικής, Εσωτερικής Αρχιτεκτονικής, Γραφιστικής, Συντήρησης Έργων Τέχνης).',
+        more: [
+          'Από την ίδρυσή του το 1993 έως σήμερα, το Εργαστήρι Τέχνης έχει να επιδείξει σχεδόν καθολικά ποσοστά επιτυχίας των μαθητών του για την εισαγωγή συνήθως σε σχολές πρώτης επιλογής τους. Καθοριστική σημασία διαδραματίζουν οι υψηλοί βαθμοί των ειδικών μαθημάτων Ελευθέρου και Γραμμικού Σχεδίου, οι οποίοι πολλές φορές κάνουν τη διαφορά έναντι ακόμη και χαμηλότερων βαθμών στα λοιπά μαθήματα εξέτασης.',
+          'Επειδή τα παιδιά στη Γ΄ Λυκείου έχουν ιδιαίτερα φορτωμένο πρόγραμμα, είναι προτιμότερο να ξεκινήσουν τα μαθήματα σχεδίου από τη Β΄ Λυκείου, ώστε να μπορέσουν να καλύψουν με σχετική άνεση και να αφομοιώσουν καλύτερα την ύλη που απαιτείται. Όμως, ακόμη κι αν κάποιος μαθητής ξεκινήσει μαθήματα σχεδίου στη Γ΄ Λυκείου, με μία μεθοδευμένη προσπάθεια του ιδίου και του διδακτικού προσωπικού, μπορεί να καλύψει την ύλη και να φθάσει σε επαρκές για τις εξετάσεις επίπεδο. Το τελικό αποτέλεσμα εξαρτάται και από το γενικότερο πρόγραμμα κάθε υποψηφίου και την προσπάθεια που πρέπει να καταβάλλει για τα λοιπά μαθήματα εξέτασης. Ορισμένοι μαθητές επιλέγουν να ξεκινήσουν την προετοιμασία ιδίως στο Ελεύθερο Σχέδιο από την Α’ Λυκείου, προκειμένου να αφομοιώσουν με άνεση τη σχετική ύλη αλλά και να καλλιεργήσουν τις δεξιότητές τους.',
+          'Δυστυχώς, η διδασκαλία του Ελευθέρου και του Γραμμικού Σχεδίου στο σχολείο (δημόσιο ή ιδιωτικό) δεν επαρκεί για τη συμμετοχή στις πανελλήνιες εξετάσεις με αξιώσεις επιτυχίας. Σε κάθε περίπτωση, οι γνώσεις σχεδίου που θα αποκτήσει ο μαθητής στο Εργαστήρι θα του χρησιμεύσουν όχι μόνο για την εισαγωγή του στη σχολή της επιλογής του αλλά και για την αποδοτική φοίτησή του σε αυτή στα συγκεκριμένα αντικείμενα.',
+          'Κατά κανόνα δεν απαιτείται πρόσθετη ενασχόληση του μαθητή στο σπίτι με το Ελεύθερο Σχέδιο, καθώς αρκεί η διδασκαλία στο Εργαστήρι, όπου υπάρχουν τοποθετημένες οι συνθέσεις αντικειμένων ή τα εκμαγεία αγαλμάτων επί των οποίων ασκείται ο μαθητής. Βεβαίως, κάθε περαιτέρω ενασχόληση, εφ’ όσον το επιτρέπει το πρόγραμμα του υποψηφίου, είναι ευπρόσδεκτη. Απαιτείται όμως πρόσθετη ενασχόληση στο σπίτι με το Γραμμικό Σχέδιο, προκειμένου μέσω της τριβής να αναπτυχθούν οι απαιτούμενες δεξιότητες.',
+          'Κατά τη διάρκεια των μαθημάτων ο μαθητής ασκείται με τα όργανα που θα έχει στη διάθεσή του στις πανελλήνιες εξετάσεις ενώ οι συνθήκες του μαθήματος προσιδιάζουν σε πραγματικές συνθήκες εξέτασης. Βεβαίως, σε τακτά χρονικά διαστήματα διοργανώνονται προσομοιώσεις εξετάσεων με επιτήρηση, αυστηρότερη διαχείριση του χρόνου και αξιολόγηση βάσει των κριτηρίων βαθμολόγησης στις πανελλήνιες εξετάσεις.',
+          'Η επιτυχία στις εξετάσεις των ειδικών μαθημάτων σχεδίου δεν είναι αποτέλεσμα ταλέντου αλλά εξοικείωσης με το σύστημα εξετάσεων και ουσιαστικής γνώσης του αντικειμένου. Η διδασκαλία βασίζεται στην εκμάθηση του Ελεύθερου και του Γραμμικού Σχεδίου βήμα – βήμα, βάσει μια τεχνογνωσίας που έχει δοκιμαστεί επιτυχώς επί 34 έτη από διδάσκουσες με σοβαρές σπουδές και πιστοποιημένη εμπειρία. Η εξέλιξη του μαθητή βασίζεται στην ικανότητα και την επιμονή που διαθέτουν οι διδάσκουσες του Εργαστηρίου, στην προσαρμογή της διδασκαλίας στις ιδιαίτερες ανάγκες του μαθητή και στο ενδιαφέρον και τη θέληση που δείχνει ο μαθητής. Σε αυτό το πλαίσιο, το λεγόμενο ταλέντο που στην ουσία αντανακλά τις γενικότερες δεξιότητες του μαθητή, συμβάλλει στην πιο εύκολη εκ μέρους του αφομοίωση της διδασκαλίας.',
+          'Η σχεδόν καθολική επιτυχία των μαθητών του Εργαστηρίου στις πανελλήνιες εξετάσεις είναι αποτέλεσμα της πολύ υψηλού επιπέδου διδασκαλίας από τις καταξιωμένες στον χώρο της Ζωγραφικής και της Αρχιτεκτονικής διδάσκουσες. Διότι η μέθοδος διδασκαλίας είναι απόσταγμα της μακροχρόνιας πείρας τους και της άριστης γνώσης του αντικειμένου τους, γεγονός που επιβεβαιώνεται και από την προσωπική, καλλιτεχνική και επαγγελματική τους σταδιοδρομία. Διότι η διδασκαλία είναι εξατομικευμένη και η επαφή με τον μαθητή στενή και ουσιαστική, ώστε να επιτυγχάνεται η εμβάθυνση στην ξεχωριστή προσωπικότητα κάθε παιδιού και η πληρέστερη αξιοποίηση των δυνατοτήτων του. Διότι ο μαθητής βρίσκει στο Εργαστήρι ένα ζεστό περιβάλλον και αποτελεσματική στήριξη και συμπαράσταση στην πιεστική περίοδο προετοιμασίας του για τις εξετάσεις.'
+        ],
+        when: 'Εξατομικευμένη διδασκαλία, 3 πλήρεις ώρες την εβδομάδα για κάθε μάθημα. Ελεύθερο Σχέδιο: Τετάρτη 17.00–20.00 ή Σάββατο 9.30–12.30 ή 12.30–15.30. Γραμμικό Σχέδιο: Σάββατο 9.00–12.00 ή 12.30–15.30.',
+        links: [link('Δείτε φωτογραφίες έργων ελευθέρου σχεδίου', 'free'), link('Δείτε φωτογραφίες έργων γραμμικού σχεδίου', 'linear'), link('Δείτε φωτογραφίες του τμήματος', 'sxedioClass')] }),
+      sec({ id: 'paidiko', num: '03', title: 'Παιδικό – Εφηβικό Τμήμα', img: B + '660ac41c38013ed07173016923425518.jpg', imgAlt: 'Έργο μαθητή του παιδικού τμήματος',
+        lead: 'Επί 34 χρόνια, από το 1993 που ιδρύθηκε το Εργαστήρι Τέχνης, χιλιάδες παιδιά διδάχθηκαν να εκφράζονται με τα μέσα που τους παρέχει η εικαστική τέχνη ακόμη και από την τρυφερή ηλικία των 4 ετών. Πολλά από αυτά ανακάλυψαν το ταλέντο τους, καλλιέργησαν τη δεξιότητά τους στη ζωγραφική και το σχέδιο και συνέχισαν την προετοιμασία τους στο Εργαστήρι για την εισαγωγή τους στην τριτοβάθμια εκπαίδευση (Σχολές Αρχιτεκτονικής, Εσωτερικής Αρχιτεκτονικής, Γραφιστικής, Συντήρησης Έργων Τέχνης, Σχολές Καλών Τεχνών) με καθολικά σχεδόν ποσοστά επιτυχίας. Με αυτό τον τρόπο, η επαφή με την Τέχνη και η ουσιαστική διδασκαλία της δεν συνέβαλαν μόνο στην καλλιέργειά τους αλλά και προσδιόρισαν τις σπουδές και το επαγγελματικό μέλλον τους.',
+        more: [
+          'Κύριος στόχος βέβαια, στα πρώτα βήματα των παιδιών στη χώρα των χρωμάτων, των σχημάτων και των όγκων, πέρα από την αισθητική τους καλλιέργεια που είναι απαραίτητη για την ολοκληρωμένη και ισορροπημένη διαμόρφωση της προσωπικότητάς τους, είναι να νιώσουν τη χαρά και την ψυχική έξαρση που χαρίζει στον άνθρωπο η καλλιτεχνική δημιουργία, κάτι που θα τα συντροφεύει και θα τα στηρίζει σε όλη τους τη ζωή, με ό,τι κι αν καταπιαστούν όταν μεγαλώσουν.',
+          'Ένα παιδί μπορεί να ξεκινήσει μαθήματα στο Εργαστήρι από την ηλικία των 4 ετών ενώ λαμβάνονται υπ’ όψιν και άλλοι παράγοντες όπως η προσωπικότητα κάθε μαθητή. Το Εργαστήρι παρέχει τη δυνατότητα να κάνει κάθε παιδί ένα δοκιμαστικό δωρεάν μάθημα, για να αποφασίσει το ίδιο αλλά και οι γονείς του, αν του αρέσει να συνεχίσει.',
+          'Υπάρχει μια κοινή παρανόηση: ότι δήθεν πρέπει να έχει ταλέντο ένα παιδί για να ασχοληθεί με τη ζωγραφική. Βεβαίως η προδιάθεση βοηθάει αλλά η έκφραση με τα μέσα της εικαστικής τέχνης διδάσκεται και η αγάπη για την Τέχνη καλλιεργείται. Εκείνο που είναι απαραίτητο είναι να θέλει το ίδιο το παιδί να ασχοληθεί με τα εικαστικά, να αγαπάει αυτή την καλλιτεχνική έκφραση και να χαίρεται που έρχεται στο Εργαστήρι. Ταλέντο, δεξιότητες, ιδιαίτερες εκφραστικές τάσεις είναι ζητήματα που θα ανακαλύψουμε και θα καλλιεργήσουμε μαζί μέσω της διδασκαλίας.',
+          'Οι διδάσκουσες διαθέτουν παιδαγωγικές και εικαστικές γνώσεις βάσει των σπουδών τους αλλά και της μακροχρόνιας εμπειρίας τους, με αποτέλεσμα να διδάσκουν την εικαστική γλώσσα με βήματα που προσαρμόζονται στην ηλικία αλλά και την προσωπικότητα κάθε παιδιού. Το μάθημα είναι εξατομικευμένο και γίνεται ιδιαίτερα σε κάθε παιδί και όχι ομαδικά σε περισσότερα παιδιά. Τα παιδιά εντάσσονται στο κατάλληλο για την ηλικία τους τμήμα για λόγους κοινωνικοποίησης και αλληλεπίδρασης, η δε διδασκαλία και παρακολούθηση της προόδου κάθε έργου είναι ατομική. Αυτός είναι ο λόγος που ένα παιδί μπορεί να ξεκινήσει οποτεδήποτε μέσα στη χρονιά χωρίς να έχει χάσει κάποιο μάθημα, αφού θα διδαχθεί τα πάντα από την αρχή αναλόγως των αναγκών του και των επιθυμιών του.',
+          'Το παιδί διδάσκεται σταδιακά όλα όσα αφορούν τις εικαστικές τέχνες: χρώμα, σχέδιο, σύνθεση, οργάνωση του χώρου, αντιμετώπιση του όγκου, χρήση των διάφορων υλικών (μολύβι, ξυλομπογιά, μαρκαδόρο, ξηροπαστέλ, λαδοπαστέλ, ακουαρέλα, λάδι, ακρυλικό). Η διδασκαλία διανθίζεται από εμβόλιμα μαθήματα χρήσης άλλων υλικών (π.χ. κατασκευές από πηλό ή πλαστελίνη ή collage με χαρτί) ή εποχικά μαθήματα (π.χ. κατασκευές μασκών στις Απόκριες, λαμπάδων το Πάσχα, φατνών τα Χριστούγεννα). Στόχος είναι τα παιδιά να αφομοιώνουν τις γνώσεις απολαμβάνοντας την επαφή με την Τέχνη, δημιουργώντας κάθε φορά ένα ή περισσότερα έργα, χωρίς η διδασκαλία να γίνεται αντιληπτή ως υποχρεωτική εκπαίδευση αλλά ως μια εξαιρετικά ευχάριστη ενασχόληση.'
+        ],
+        when: 'Εξατομικευμένη διδασκαλία, 1,5 ώρα την εβδομάδα. Κάθε Παρασκευή σε τρία τμήματα: 16.00–17.30, 17.30–19.00, 19.00–20.30.',
+        links: [link('Δείτε φωτογραφίες έργων', 'kids'), link('Δείτε φωτογραφίες του τμήματος', 'kidsClass')] }),
+      sec({ id: 'enilikes', num: '04', title: 'Τμήμα Ενηλίκων', img: B + 'aa2a643b25fce2211254fab49117ac27.jpg', imgAlt: 'Έργο μαθητή του τμήματος Ενηλίκων',
+        lead: 'Ποτέ δεν είναι αργά να έρθουμε σε επαφή με την Τέχνη. Η ενασχόληση με τη ζωγραφική, το σχέδιο, την αγιογραφία είτε στο περιθώριο της εργασίας μας ή άλλων υποχρεώσεων είτε σε μια νέα φάση της ζωής μας ίσως κατά τη συνταξιοδότησή μας αποτελεί μια όαση αντίστασης σε μια αμείλικτη άμουση πραγματικότητα, είναι ένα οφειλόμενο δώρο στον εαυτό μας που ανακουφίζει την ψυχή μας, προάγει την καλλιέργεια και σφυρηλατεί μια περί αισθητικής αντίληψη.',
+        more: ['Η ζωγραφική είναι μια γλώσσα που διδάσκεται όπως κάθε άλλη γλώσσα. Για να την μάθει κανείς χρειάζεται κυρίως αγάπη για την Τέχνη. Από εκεί και πέρα είναι θέμα καλού δασκάλου που θα καθοδηγήσει σωστά τα βήματα του μαθητή στην ανίχνευση του άγνωστου κόσμου των εικαστικών τεχνών. Δεν έχει σημασία τι θα δημιουργήσει κανείς με αυτό το μέσο έκφρασης. Αν θα φτιάξει αριστουργήματα ή απλώς συμπαθητικά έργα ή θα αρκεστεί να κατανοεί και να ερμηνεύει τα έργα των άλλων καλλιτεχνών. Μήπως όταν μαθαίνουμε να διαβάζουμε και να γράφουμε το κάνουμε για να γίνουμε όλοι μεγάλοι λογοτέχνες;'],
+        when: 'Εξατομικευμένη διδασκαλία, 3 πλήρεις ώρες την εβδομάδα. Τετάρτη 17.00–20.00 ή Σάββατο 9.30–12.30 ή 12.30–15.30.',
+        links: [link('Δείτε φωτογραφίες έργων και του τμήματος', 'adults')] }),
+      sec({ id: 'kalon', num: '05', title: 'Τμήμα Καλών Τεχνών', img: B + '00832fe3b1aaa999976222f8b4eed628.jpg', imgAlt: 'Έργο μαθητή του τμήματος Καλών Τεχνών',
+        lead: 'Η εισαγωγή στις Σχολές Καλών Τεχνών στην Ελλάδα γίνεται εκτός πανελληνίων εξετάσεων και προϋποθέτει την εξοικείωση με το σύστημα και τις απαιτήσεις των εξετάσεων αλλά και την ουσιαστική γνώση του αντικειμένου (σχέδιο, σύνθεση, χρώμα) που διευκολύνει η μεθοδική ενασχόληση με αυτό μέσω της διδασκαλίας, χρησιμοποιώντας ίσως την πληρέστερη συλλογή εκμαγείων αγαλμάτων από το Εθνικό Αρχαιολογικό Μουσείο και μια πλούσια βιβλιοθήκη βιβλίων τέχνης.',
+        when: 'Εξατομικευμένη διδασκαλία, 3 ή 6 πλήρεις ώρες την εβδομάδα. Τετάρτη 17.00–20.00 ή/και Σάββατο 9.30–12.30 ή 12.30–15.30.',
+        links: [link('Δείτε φωτογραφίες έργων και του τμήματος', 'kalon')] }),
+      sec({ id: 'fakelos', num: '06', title: 'Τμήμα Δημιουργίας Φακέλου για Σχολές του Εξωτερικού', img: B + '09a94944756566b976dee326d72e4cbd.jpg', imgAlt: 'Έργο μαθητή',
+        lead: 'Πολλές σχολές Καλών Τεχνών ή Αρχιτεκτονικής στο εξωτερικό ζητούν από τους υποψηφίους σπουδαστές την παρουσίαση φακέλου (portfolio) για την επιλογή τους είτε αντί εξετάσεων είτε επί πλέον αυτών.',
+        more: [
+          'Κάθε σχολή έχει διαφορετικές απαιτήσεις ενώ τα έργα εκτείνονται σε διάφορους τομείς της καλλιτεχνικής δημιουργίας (σχέδια παρατήρησης, σχέδια νεκρής φύσης, σχέδια μοντέλων εκ του φυσικού, σχέδια χαρακτήρων σε κίνηση, σχέδια προσώπων με διαφορετικές εκφράσεις, έργα με χρώμα, φωτογραφίες, γλυπτά, χαρακτικά, video art, καρικατούρες, animation, έργα μικτής τεχνικής, σκηνογραφίες, αγιογραφίες, κλπ.).',
+          'Στο Εργαστήρι μας εξειδικευμένοι καλλιτέχνες θα καθοδηγήσουν τον υποψήφιο σπουδαστή όχι μόνο στην κατάρτιση ενός φακέλου σύμφωνα με τις απαιτήσεις της σχολής του εξωτερικού που τον ενδιαφέρει αλλά και στην ουσιαστική επαφή με κάθε κλάδο της καλλιτεχνικής δημιουργίας μέσω της εξατομικευμένης διδασκαλίας. Ο μαθητής αποκτά ιδίως γνώσεις σύνθεσης, σχεδίου με μολύβι και κάρβουνο, μετρήματος με βελόνα, χρώματος (με λάδι, ακρυλικό, ακουαρέλα, ξηροπαστέλ, λαδοπαστέλ), χρησιμοποιώντας ίσως την πληρέστερη συλλογή εκμαγείων αγαλμάτων από το Εθνικό Αρχαιολογικό Μουσείο και μια πλούσια βιβλιοθήκη βιβλίων τέχνης. Αυτή η προσέγγιση θα φανεί πολύ χρήσιμη στον σπουδαστή όχι μόνο για την εισαγωγή του σε μια σχολή αλλά και για τις σπουδές του στο συγκεκριμένο αντικείμενο.'
+        ],
+        when: 'Εξατομικευμένη διδασκαλία, κατόπιν συνεννόησης βάσει των αναγκών κάθε μαθητή.' }),
+      sec({ id: 'nadia', num: '07', title: 'Βιογραφικό Νάντιας Αδαμοπούλου', img: B + 'dc24854c88b89b5ec7b2c83f8f8b7c65.jpg', imgAlt: 'Πίνακας της Νάντιας Αδαμοπούλου',
+        lead: 'Η ζωγράφος Νάντια Αδαμοπούλου εισήχθη το 1987 (με την πρώτη προσπάθεια και 4η σε σειρά επιτυχίας) στην Ανωτάτη Σχολή Καλών Τεχνών στην Αθήνα, φοίτησε βάσει σειράς επιτυχίας και κατόπιν επιλογής στο Α΄ Εργαστήρι του Δημήτρη Μυταρά, όπου σπούδασε Ζωγραφική, φοίτησε στο Εργαστήρι Νωπογραφίας και Τεχνικής των Φορητών Εικόνων της σχολής με δάσκαλο τον Κωνσταντίνο Ξυνόπουλο, όπου σπούδασε Αγιογραφία, ενώ παρακολούθησε μαθήματα Διδακτικής και Ιστορίας της Τέχνης με δασκάλα τη Μαρίνα Λαμπράκη - Πλάκα. Αποφοίτησε το 1993 με άριστα (10/10).',
+        more: [
+          'Είναι ενεργή καλλιτέχνης, έχει πραγματοποιήσει τρεις ατομικές εκθέσεις και έχει λάβει μέρος σε πολλές ομαδικές εκθέσεις στην Ελλάδα και το εξωτερικό. Έργα της βρίσκονται σε πινακοθήκες και ιδιωτικές συλλογές εντός και εκτός Ελλάδας.',
+          'Είναι μέλος του Επιμελητηρίου Εικαστικών Τεχνών Ελλάδας και του Οργανισμού Συλλογικής Διαχείρισης Έργων Εικαστικών Τεχνών και των Εφαρμογών τους.',
+          'Έχει διδάξει σε δήμους και πολιτιστικούς συλλόγους και από το 1993 έως σήμερα διδάσκει ανελλιπώς στο Εργαστήρι Τέχνης που έχει ιδρύσει στον Άγιο Στέφανο Αττικής.'
+        ],
+        links: [link('Δείτε έργα της', 'nadia')] })
+    ];
+    const bgs = {
+      sxedio: ['cfc3158d640cf95465778adf8cd05414', '2b77cb37e50fc21f4c6b00556a94bb04', 'f22a586097bf9ea25180331600718f2c', 'ebcdb4520db852bbcdb76159a9d1a632', '5caa8ccb4fb69eaad5fd55537d7748bc', '997356eb187d005cfac03609836c4741', '5322ddc202de44aadc0bc11b9554461f', 'a487a8263fa8d88db01efa72663ef1ba', '9a18f60c20c2d120294b88fad7535ca5', '4d62fa32fdfa5b4db5a7e9d5f6772ff6'],
+      paidiko: ['c454585bac7ff785abc0c65fc21810bb', '37ee2fcd388cc2a1da4cb17e176da3ab', 'a6b118dee2b34d7fac18fd2e6601a615', '793d4f2de43f96a314d06becb5894c55', '5be2839480ba534bdfab8a77c2447976', '653f53e7da0c6ed52020f4f5267d30b8', '13dea037f9be4383fba77fc79eade48b', '66b6b5d3dfbef53e08f00a70e5abc85d', '1996027d7f8460ae9a86828d43e9f74b', '5df16c346632e9f77004726b1fe1d568'],
+      enilikes: ['62dc1c8f2785cf89820f277e45e34881', 'b79e1a44af8b66ad2df25bf34e0adee4', '314d217221d314f9cc2a9e422013d3c7', '334dce1221a9e65b0bd3a3416930907b', 'edbbfd314ffe4d04e2c94f4709c6f0d1'],
+      kalon: ['cc28e59b770595cc3e3dc96f47445e97', 'd0a1984f371082fa374a4333b4086d09', '3b5756169a2f9ba2e3164bfdc9bec8d8', '4402f15725043656b85f17dcf00a4349', '3f2202cb35533bae3c0360288ed56491', '963749a7f12c9082200f7b381e055c8f', 'd6a23e85ade85991662d297c9ee98c55', 'b8728dd9897a727e91f6177f2a9d869c', 'a659dec327d29660c235e07ae09c0b99', 'ad3bc8a088de1f7f278a6f2d58ba3a67']
+    };
+    return { slideData: slideData, galleries: galleries, sections: sections, bgs: bgs, pic: pic, B: B };
+  }).call(self);
+
+  var B = data.B, sections = data.sections, bgs = data.bgs, galleries = data.galleries;
+  var VIBER = 'viber://chat?number=%2B306947265957', WA = 'https://wa.me/306947265957', TEL = 'tel:+306947265957';
+  var shortName = { ergastiri: 'Το Εργαστήρι', sxedio: 'Ελεύθερο & Γραμμικό', paidiko: 'Παιδικό – Εφηβικό', enilikes: 'Ενηλίκων', kalon: 'Καλών Τεχνών', fakelos: 'Φάκελος εξωτερικού', nadia: 'Νάντια Αδαμοπούλου', programma: 'Πρόγραμμα', epikoinonia: 'Επικοινωνία' };
+  var labels = { ergastiri: 'ΤΟ ΕΡΓΑΣΤΗΡΙ', sxedio: 'ΠΑΝΕΛΛΗΝΙΕΣ', paidiko: 'ΑΠΟ 4 ΕΤΩΝ', enilikes: 'ΓΙΑ ΕΝΗΛΙΚΕΣ', kalon: 'ΣΧΟΛΕΣ ΚΑΛΩΝ ΤΕΧΝΩΝ', fakelos: 'ΣΠΟΥΔΕΣ ΕΞΩΤΕΡΙΚΟΥ', nadia: 'Η ΔΑΣΚΑΛΑ' };
+  var naIds = ['61033518132d89d38e320a6585ad1106', '2c63da6e97ec955fc0726eb509374e1d', 'c4cb85f734fca9119917e8e4ad20f552', '9ed2f9927cb6c835820c9a7b021db526', '58e2aa2bf8ab713ad3213637730cd688', 'b54c5112bb2d4da7cfe4834cb55ac23f', '8efdffbede0137fd016c3b92d04df081', '741be317dd73f8e79554faa509b48587', 'cdaa9edf98bf313c09a7ec27f1ea4a40', 'f7027662cb6465683409541b6719d99b'];
+  var pageData = {
+    ergastiri: { pics: ['b3d4edf787024794af754c45ec0e82fa'], cap: 'Η βιτρίνα του Εργαστηρίου', note: 'Οι υπόλοιπες φωτογραφίες του χώρου δείχνουν μαθητές και παιδιά — μπαίνουν μόνο με γραπτή συναίνεση.', extra: ['Ο χώρος και ο εξοπλισμός', 'Οι διδάσκουσες', 'Ώρες γραμματείας'] },
+    sxedio: { pics: bgs.sxedio.concat(['46456967266bca58e1ac2ad15281c59a', 'aa7f039d4a4cd8872d73fac0fe79905b', '0b8c1d2bd8e5c866d35299712d70ad24', '13204fb2ca0f3b1a44e0e527d5367e01']), cap: 'Ελεύθερο – Γραμμικό · έργο μαθητή', note: 'Οι φωτογραφίες του τμήματος (με μαθητές) μπαίνουν μόνο με γραπτή συναίνεση.', extra: ['Δίδακτρα', 'Όργανα και υλικά που χρειάζονται', 'Αποτελέσματα πανελληνίων ανά χρονιά', 'Πότε γίνονται οι προσομοιώσεις'] },
+    paidiko: { pics: bgs.paidiko.concat(['e2e67921935ed905ee409b943e508b81', '60281dfe2baf9448c37703cd33644c0e', 'c31bc084c328ce9269d9397f041bcbcf', 'f8405f56fd3c7b753b930336f982ab69', 'a1d263d9167a45890fe3e44bfad86748']), cap: 'Παιδικό – Εφηβικό · έργο μαθητή', note: 'Οι φωτογραφίες του τμήματος (με παιδιά) μπαίνουν μόνο με γραπτή συναίνεση των γονέων.', extra: ['Δίδακτρα', 'Ηλικιακές ομάδες ανά ώρα', 'Υλικά: τα δίνει το Εργαστήρι ή τα φέρνει το παιδί;', 'Κλείσιμο δοκιμαστικού μαθήματος'] },
+    enilikes: { pics: bgs.enilikes, cap: 'Τμήμα Ενηλίκων · έργο μαθητή', note: '', extra: ['Δίδακτρα', 'Επίπεδα (αρχάριοι / προχωρημένοι)', 'Μαθήματα αγιογραφίας'] },
+    kalon: { pics: bgs.kalon, cap: 'Τμήμα Καλών Τεχνών · έργο μαθητή', note: '', extra: ['Δίδακτρα', 'Επιτυχίες στην ΑΣΚΤ ανά χρονιά', 'Η συλλογή εκμαγείων'] },
+    fakelos: { pics: [], cap: '', note: 'Λείπουν φωτογραφίες φακέλων (portfolio) — να ζητηθούν από το Εργαστήρι.', extra: ['Σχολές του εξωτερικού όπου έχουν γίνει δεκτοί μαθητές', 'Διάρκεια προετοιμασίας', 'Κόστος'] },
+    nadia: { pics: naIds, cap: 'Έργο της Νάντιας Αδαμοπούλου', note: 'Φωτογραφίες έργων: Spiridon Kotsiopoulos', extra: ['Λίστα εκθέσεων', 'Πινακοθήκες και συλλογές', 'Επικοινωνία για αγορά έργων'] }
+  };
+  var days = [
+    { day: 'ΤΕΤΑΡΤΗ', slots: [['17.00–20.00', 'Ελεύθερο Σχέδιο, Ενηλίκων, Καλών Τεχνών']] },
+    { day: 'ΠΑΡΑΣΚΕΥΗ', slots: [['16.00–17.30', 'Παιδικό – Εφηβικό · 1ο τμήμα'], ['17.30–19.00', 'Παιδικό – Εφηβικό · 2ο τμήμα'], ['19.00–20.30', 'Παιδικό – Εφηβικό · 3ο τμήμα']] },
+    { day: 'ΣΑΒΒΑΤΟ', slots: [['9.00–12.00', 'Γραμμικό Σχέδιο'], ['9.30–12.30', 'Ελεύθερο Σχέδιο, Ενηλίκων, Καλών Τεχνών'], ['12.30–15.30', 'Ελεύθερο, Γραμμικό, Ενηλίκων, Καλών Τεχνών']] }
+  ];
+  var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+  var credit = function (c) { return c.id === 'nadia' ? 'Νάντια Αδαμοπούλου' : 'έργο μαθητή'; };
+  sections.forEach(function (c, i) {
+    c.label = labels[c.id] || '';
+    c.rev = i % 2 === 0 ? 'rev' : '';
+    c.list = bgs[c.id] || [];
+    var n = pageData[c.id].pics.length;
+    c.hint = c.more.length ? 'Όλο το κείμενο' + (n ? ' · ' + n + (n === 1 ? ' φωτογραφία' : ' φωτογραφίες') : '') : (n ? n + (n === 1 ? ' φωτογραφία' : ' φωτογραφίες') : 'Περισσότερες πληροφορίες');
+    c.photoHint = n ? n + (n === 1 ? ' φωτογραφία' : ' φωτογραφίες') : '';
+    c.photoBtn = n ? 'Φωτογραφίες' : 'Περισσότερα';
+  });
+  var secIds = sections.map(function (c) { return c.id; });
+
+  // ---- actions ----
+  function render() { document.getElementById('app').innerHTML = view(); bind(); syncSlides(); }
+  function set(patch) { Object.keys(patch).forEach(function (k) { state[k] = patch[k]; }); render(); }
+  function go(page) { set({ page: page, navOpen: false, lb: null }); window.scrollTo(0, 0); }
+  function goAnchor(id) {
+    var was = state.page;
+    set({ page: 'home', navOpen: false, lb: null });
+    if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+    setTimeout(function () { var el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: was === 'home' ? 'smooth' : 'auto' }); }, 40);
+  }
+  function openSec(id) { if (state.layout === '1' && secIds.indexOf(id) > -1) go(id); else goAnchor(id); }
+  var lbList = [];
+  function openLb(list, i) { lbList = list; set({ lb: i }); }
+
+  // ---- views ----
+  function chev(color) { return '<svg class="chev" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="' + color + '" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>'; }
+  function slidesHtml(ids, group, extraCls) {
+    return ids.map(function (src, j) { return '<div class="slide ' + (extraCls || '') + '" data-g="' + group + '" data-i="' + j + '" aria-hidden="true"><img src="' + esc(src) + '" alt="" ' + (j > 0 ? 'loading="lazy" ' : '') + 'decoding="async"></div>'; }).join('');
+  }
+  function header() {
+    var depts = ['sxedio', 'paidiko', 'enilikes', 'kalon', 'fakelos'];
+    var all = ['ergastiri', 'sxedio', 'paidiko', 'enilikes', 'kalon', 'fakelos', 'programma', 'nadia', 'epikoinonia'];
+    return '<header class="hdr"><div class="wrap hin">' +
+      '<button type="button" class="logo" data-act="top"><span class="l1">εργαστήρι τέχνης</span><span class="l2">ΝΑΝΤΙΑ ΑΔΑΜΟΠΟΥΛΟΥ</span></button>' +
+      '<nav class="desknav" aria-label="Κύριο μενού">' +
+        '<a class="navlink" href="#ergastiri" data-sec="ergastiri">Το Εργαστήρι</a>' +
+        '<div class="dd"><button type="button" class="navlink" aria-haspopup="true">Τμήματα ' + chev('#E0662F') + '</button><div class="ddpanel">' +
+          depts.map(function (id) { return '<a class="ddlink" href="#' + id + '" data-sec="' + id + '">' + esc(shortName[id]) + '</a>'; }).join('') +
+        '</div></div>' +
+        '<a class="navlink" href="#programma" data-sec="programma">Πρόγραμμα</a>' +
+        '<a class="navlink" href="#nadia" data-sec="nadia">Νάντια Αδαμοπούλου</a>' +
+        '<a class="navlink" href="#epikoinonia" data-sec="epikoinonia">Επικοινωνία</a>' +
+      '</nav>' +
+      '<div style="display:flex;align-items:center;gap:12px;flex:0 0 auto"><a class="ctabtn deskcta" href="' + TEL + '">Κλείστε θέση · 694 726 5957</a>' +
+        '<button type="button" class="burger" data-act="nav" aria-label="Μενού" aria-expanded="' + state.navOpen + '"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#171515" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></button></div>' +
+      '</div>' +
+      '<nav class="wrap mobnav' + (state.navOpen ? ' open' : '') + '" aria-label="Μενού">' + all.map(function (id) { return '<a href="#' + id + '" data-sec="' + id + '">' + esc(shortName[id]) + '</a>'; }).join('') + '</nav>' +
+    '</header>';
+  }
+  function heroBtns() { return '<div class="hbtns"><a class="ctabtn big onlyd" href="#epikoinonia" data-sec="epikoinonia">Δωρεάν δοκιμαστικό μάθημα</a><a class="ghostbtn" href="#programma" data-sec="programma">Δείτε το πρόγραμμα</a></div>'; }
+  function hero() {
+    var srcs = data.slideData.map(function (d) { return B + d[0] + '.jpg'; });
+    if (state.hero === '3') {
+      return '<section id="top" class="hero split" aria-roledescription="carousel" aria-label="Έργα του Εργαστηρίου">' +
+        '<div class="sptext"><div class="spin"><h1 class="spword">εργαστήρι<br>τέχνης</h1>' +
+        '<p class="spsub">Άγιος Στέφανος Αττικής · από το 1993</p><p class="spwho">Από 4 ετών έως ενήλικες</p>' +
+        '<p class="spdesc">Διδασκαλία της Τέχνης επί 34 χρόνια με μια διαφορετική ανθρώπινη προσέγγιση.</p>' + heroBtns() + '</div>' +
+        '<div class="hcap spcap"><span class="t" aria-live="polite" data-cap="hero"></span><div class="dots" role="group" aria-label="Επιλογή εικόνας">' +
+        srcs.map(function (s, j) { return '<button type="button" class="dotbtn" data-dot="' + j + '" aria-label="Εικόνα ' + (j + 1) + '"><span class="dot" data-g="herodot" data-i="' + j + '"></span></button>'; }).join('') +
+        '</div></div></div>' +
+        '<div class="sppic">' + slidesHtml(srcs, 'hero', 'sslide') + '</div></section>';
+    }
+    if (state.hero === '2') {
+      return '<section id="top" class="hero" aria-label="Εργαστήρι Τέχνης">' + slidesHtml(srcs.slice(1), 'hero', 'mslide') +
+        '<div class="mhin"><div class="wrap"><h1 class="mword"><span class="mw1">εργαστήρι</span><em class="mw2">τέχνης</em></h1>' +
+        '<div class="mmeta"><div style="display:flex;flex-direction:column;gap:14px;max-width:560px"><p style="margin:0;font-size:21px;font-weight:700;line-height:1.45">Άγιος Στέφανος Αττικής · από το 1993</p><p style="margin:0;font-size:19px;line-height:1.6;color:var(--warm)">Ελεύθερο και Γραμμικό Σχέδιο για τις πανελλήνιες, προετοιμασία για Καλών Τεχνών, παιδικό – εφηβικό τμήμα, ενήλικες, φάκελος για σχολές του εξωτερικού.</p></div>' + heroBtns() + '</div></div></div></section>';
+    }
+    return '<section id="top" class="hero" aria-roledescription="carousel" aria-label="Έργα του Εργαστηρίου">' + slidesHtml(srcs, 'hero') +
+      '<div class="hgrad" aria-hidden="true"></div><div class="hin1"><div class="wrap">' +
+      '<h1 class="h1c">εργαστήρι<br><em>τέχνης</em></h1>' +
+      '<p class="hsub">Διδασκαλία της Τέχνης επί 34 χρόνια με μια διαφορετική ανθρώπινη προσέγγιση.</p>' + heroBtns() +
+      '<div class="hcap"><span class="t" aria-live="polite" data-cap="hero"></span><div class="dots" role="group" aria-label="Επιλογή εικόνας">' +
+      srcs.map(function (s, j) { return '<button type="button" class="dotbtn" data-dot="' + j + '" aria-label="Εικόνα ' + (j + 1) + '"><span class="dot" data-g="herodot" data-i="' + j + '"></span></button>'; }).join('') +
+      '</div></div></div></div></section>';
+  }
+  function strips() {
+    return '<section aria-label="Μέσα κοινωνικής δικτύωσης" style="background:var(--ink)"><div class="wrap" style="padding-block:22px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 28px">' +
+      '<span style="font-family:var(--serif);font-style:italic;font-size:22px;color:var(--warm)">Ακολουθήστε το Εργαστήρι</span><div style="display:flex;flex-wrap:wrap;gap:8px"><a class="soc" href="#top" aria-label="Instagram" title="Instagram"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"></path></svg></a><a class="soc" href="#top" aria-label="Facebook" title="Facebook"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"></path></svg></a><a class="soc" href="#top" aria-label="TikTok" title="TikTok"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"></path></svg></a><a class="soc" href="#top" aria-label="LinkedIn" title="LinkedIn"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg></a></div></div></section>' +
+      '<section class="facts" aria-label="Με μια ματιά"><div class="wrap factgrid">' +
+        '<div class="fact"><span class="fn">1993</span><span class="fl">Ίδρυση του Εργαστηρίου στον Άγιο Στέφανο</span></div>' +
+        '<div class="fact"><span class="fn">10/10</span><span class="fl">Πτυχίο ΑΣΚΤ με άριστα, Α΄ Εργαστήρι Δ. Μυταρά</span></div>' +
+        '<div class="fact"><span class="fn">3</span><span class="fl">Ατομικές εκθέσεις της Νάντιας Αδαμοπούλου</span></div>' +
+        '<div class="fact"><span class="fn">4+</span><span class="fl">Από 4 ετών έως ενήλικες, ατομική διδασκαλία</span></div>' +
+      '</div></section>';
+  }
+  var tileLine = { ergastiri: 'Από το 1993 στον Άγιο Στέφανο', sxedio: 'Προετοιμασία για τις πανελλήνιες', paidiko: 'Από 4 ετών, κάθε Παρασκευή', enilikes: 'Ζωγραφική, σχέδιο, αγιογραφία', kalon: 'Εισαγωγή στις Σχολές Καλών Τεχνών', fakelos: 'Portfolio για σχολές του εξωτερικού', nadia: 'Η ζωγράφος που διδάσκει στο Εργαστήρι' };
+  function tiles() {
+    return '<section id="tmimata" aria-label="Τμήματα" style="scroll-margin-top:var(--hdr)"><div class="tiles">' +
+      sections.map(function (c) {
+        return '<a class="tile' + (c.id === 'ergastiri' ? ' wide' : '') + '" href="#' + c.id + '" data-sec="' + c.id + '"><img src="' + esc(c.img) + '" alt="" loading="lazy" decoding="async"><span class="tshade" aria-hidden="true"></span>' +
+          '<span class="ttext"><span class="tname">' + esc(shortName[c.id]) + '</span><span class="tline">' + esc(tileLine[c.id] || '') + '</span><span class="tmore">Περισσότερα <span aria-hidden="true">→</span></span></span><span class="tcredit">' + credit(c) + '</span></a>';
+      }).join('') + '</div></section>';
+  }
+  function programma() {
+    return '<section id="programma" class="prog" aria-label="Πρόγραμμα μαθημάτων"><div class="wrap"><h2 style="margin:0;font-size:28px;font-weight:800;letter-spacing:-.015em">Πρόγραμμα</h2><div class="days">' +
+      days.map(function (d) { return '<div class="daycol"><span class="dlbl">' + d.day + '</span>' + d.slots.map(function (s) { return '<div class="slot"><b>' + s[0] + '</b><span>' + s[1].split(', ').map(function (x) { return '<span class="nw">' + esc(x) + '</span>'; }).join(', ') + '</span></div>'; }).join('') + '</div>'; }).join('') +
+      '</div><p class="progx"><b>Φάκελος εξωτερικού:</b> εξατομικευμένη διδασκαλία, κατόπιν συνεννόησης.</p></div></section>';
+  }
+  function moreBlock(c, cls) {
+    if (!c.more.length) return '';
+    return '<details class="more"><summary><span class="lbl-more">Διαβάστε όλο το κείμενο</span><span class="lbl-less">Λιγότερο κείμενο</span>' + chev('currentColor') + '</summary><div class="body">' +
+      c.more.map(function (p) { return '<p class="lead">' + esc(p) + '</p>'; }).join('') + '</div></details>';
+  }
+  var facts = { ergastiri: 'Άγιος Στέφανος · από το 1993', sxedio: 'Υποψήφιοι πανελληνίων · Τετάρτη & Σάββατο', paidiko: 'Από 4 ετών · Παρασκευή 16.00, 17.30 ή 19.00 · 1,5 ώρα', enilikes: 'Τετάρτη 17.00–20.00 · Σάββατο πρωί ή μεσημέρι', kalon: 'Υποψήφιοι Σχολών Καλών Τεχνών · Τετάρτη & Σάββατο', fakelos: 'Εξατομικευμένα, κατόπιν συνεννόησης', nadia: 'Ζωγράφος · Πτυχίο ΑΣΚΤ με άριστα' };
+  var factsLine = function (c) { return facts[c.id] ? '<p class="tfacts">' + esc(facts[c.id]) + '</p>' : ''; };
+  function eyebrow(c) { return ''; }
+  function bands() {
+    return sections.map(function (c) {
+      var plain = c.list.length ? '' : ' plain';
+      return '<section id="' + c.id + '" class="band ' + c.rev + plain + '">' + slidesHtml(c.list.map(function (id) { return B + id + '.jpg'; }), 'b-' + c.id) +
+        '<div class="scrim" aria-hidden="true"></div><div class="wrap bandin"><div class="col rv">' + eyebrow(c) +
+        '<h2 class="bh2">' + esc(c.title) + '</h2>' + factsLine(c) + '<p class="lead">' + esc(c.lead) + '</p>' +
+        '<div style="display:flex;flex-wrap:wrap;gap:10px 18px;padding-top:4px"><button type="button" class="morebtn" data-page="' + c.id + '">Δείτε περισσότερα <span aria-hidden="true">→</span></button><span class="morehint">' + esc(c.hint) + '</span></div>' +
+        '</div></div><div class="count" aria-hidden="true" data-count="b-' + c.id + '"></div></section>';
+    }).join('');
+  }
+  function fbands() {
+    return sections.map(function (c) {
+      var ids = c.list.length ? c.list.map(function (id) { return B + id + '.jpg'; }) : [c.img];
+      return '<section id="' + c.id + '" class="fband ' + c.rev + '">' + slidesHtml(ids, 'f-' + c.id) +
+        '<div class="fscrim" aria-hidden="true"></div><div class="wrap fin"><div class="fpanel rv">' + eyebrow(c) +
+        '<h2 class="bh2" style="font-size:clamp(32px,3.6vw,46px)">' + esc(c.title) + '</h2>' + factsLine(c) + '<p class="lead">' + esc(c.lead) + '</p>' + moreBlock(c) +
+        '<div style="display:flex;flex-wrap:wrap;gap:10px 18px;padding-top:4px"><button type="button" class="morebtn" data-page="' + c.id + '">' + c.photoBtn + ' <span aria-hidden="true">→</span></button><span class="morehint">' + c.photoHint + '</span></div>' +
+        '</div></div>' + (c.list.length ? '<div class="count" aria-hidden="true" data-count="f-' + c.id + '"></div>' : '') + '</section>';
+    }).join('');
+  }
+  function detail(c) {
+    var p = pageData[c.id];
+    var plain = c.list.length ? '' : ' plain';
+    var pics = p.pics.map(function (id, j) { return { src: B + id + '.jpg', cap: p.cap + (c.id === 'nadia' && galleries.nadia ? '' : '') }; });
+    window.__pics = pics;
+    return '<div class="pagefade"><section class="dhero' + plain + '">' + slidesHtml(c.list.map(function (id) { return B + id + '.jpg'; }), 'd-' + c.id) +
+      '<div class="dscrim" aria-hidden="true"></div><div class="wrap dheroin"><button type="button" class="back" data-act="home">← Αρχική</button>' + eyebrow(c) + '<h1 class="dh1">' + esc(c.title) + '</h1>' + factsLine(c) + '</div></section>' +
+      '<section class="wrap dbody"><div class="dtext"><p class="first">' + esc(c.lead) + '</p>' + c.more.map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('') + '</div>' +
+      '<aside class="aside">' + (c.when ? '<div class="abox"><span class="albl">ΠΡΟΓΡΑΜΜΑ</span><span>' + esc(c.when) + '</span><a class="ctabtn" style="text-align:center;margin-top:6px" href="' + TEL + '">Κλείστε θέση · 694 726 5957</a><div class="msgrow"><span>ή μήνυμα:</span><a class="msg" href="' + VIBER + '">Viber</a><a class="msg" href="' + WA + '">WhatsApp</a></div></div>' : '') +
+      '<div class="xbox"><span class="albl" style="color:var(--deep)">ΕΠΙΠΛΕΟΝ ΠΛΗΡΟΦΟΡΙΕΣ</span><ul>' + p.extra.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div></aside></section>' +
+      '<section class="wrap" style="padding-bottom:96px"><div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px;margin-bottom:28px"><h2 style="margin:0;font-size:40px;font-weight:800;letter-spacing:-.02em">Φωτογραφίες</h2><span style="font-size:17px;color:#7A726A">' + (p.pics.length ? p.pics.length + (p.pics.length === 1 ? ' φωτογραφία' : ' φωτογραφίες') + ' · πατήστε για μεγέθυνση' : '') + '</span></div>' +
+      (p.pics.length ? '<div class="grid">' + pics.map(function (g, j) { return '<button type="button" class="thumb" data-lb="' + j + '" aria-label="Μεγέθυνση: ' + esc(g.cap) + ' ' + (j + 1) + '"><span class="im"><img src="' + esc(g.src) + '" alt="' + esc(g.cap) + '" loading="lazy" decoding="async"></span><span class="cap">' + esc(g.cap) + '</span></button>'; }).join('') + '</div>' : '') +
+      (p.note ? '<p class="note">' + esc(p.note) + '</p>' : '') + '</section>' +
+      '<section style="background:var(--cream)"><div class="wrap" style="padding-block:56px;display:flex;flex-direction:column;gap:18px"><span class="albl" style="color:var(--deep)">ΔΕΙΤΕ ΚΑΙ</span><div style="display:flex;flex-wrap:wrap;gap:10px">' +
+      sections.filter(function (o) { return o.id !== c.id; }).map(function (o) { return '<button type="button" class="chip" data-page="' + o.id + '">' + esc(o.title) + ' →</button>'; }).join('') + '</div></div></section></div>';
+  }
+  function contact() {
+    return '<section id="epikoinonia" class="contact" aria-label="Επικοινωνία"><div class="wrap cin"><div class="rv">' +
+      '<h2 class="ch2">Επικοινωνία</h2><p class="cfree"><b>Δωρεάν δοκιμαστικό μάθημα</b> σε όλα τα τμήματα. Καλέστε για να κλείσετε θέση.</p><p style="margin:0;font-size:19px;line-height:1.7;color:var(--warm)">Κοιμήσεως Θεοτόκου 38-40, εμπορικό κέντρο ΕΛΤΑ<br>Άγιος Στέφανος Αττικής, ΤΚ 14565</p>' +
+      '<p class="phones"><a href="tel:+302106216687">210 621 6687</a><br><a href="' + TEL + '">694 726 5957</a><br><a href="mailto:nadia.adamopoulou68@gmail.com">nadia.adamopoulou68@gmail.com</a></p>' +
+      '<div class="msgrow"><span>Μήνυμα στο 694 726 5957:</span><a class="msg" href="' + VIBER + '">Viber</a><a class="msg" href="' + WA + '">WhatsApp</a></div>' +
+      '<a href="https://www.google.com/maps/search/?api=1&amp;query=%CE%9A%CE%BF%CE%B9%CE%BC%CE%AE%CF%83%CE%B5%CF%89%CF%82+%CE%98%CE%B5%CE%BF%CF%84%CF%8C%CE%BA%CE%BF%CF%85+38+%CE%86%CE%B3%CE%B9%CE%BF%CF%82+%CE%A3%CF%84%CE%AD%CF%86%CE%B1%CE%BD%CE%BF%CF%82" target="_blank" rel="noopener" style="color:#fff;font-weight:700">Άνοιγμα στο Google Maps ↗</a></div>' +
+      '<div class="rv" style="flex:1 1 520px"><img src="' + B + 'b3d4edf787024794af754c45ec0e82fa.jpg" alt="Η βιτρίνα του Εργαστηρίου" loading="lazy" style="width:100%;height:340px;object-fit:cover;display:block"><span class="cap" style="color:#9C958B">Η βιτρίνα του Εργαστηρίου</span></div></div></section>' +
+      '<section id="syndesmoi" class="wrap" style="padding-block:64px;display:flex;flex-wrap:wrap;align-items:baseline;gap:16px 48px"><h2 style="margin:0;font-size:32px;font-weight:800;letter-spacing:-.02em">Σύνδεσμοι</h2><p style="margin:0;font-size:17px;color:var(--muted)">[θα προστεθούν]</p></section>' +
+      '<footer class="foot"><div class="wrap"><span>© Εργαστήρι Τέχνης · Άγιος Στέφανος</span><div style="display:flex;flex-wrap:wrap;gap:8px 20px"><a href="#top">Όροι χρήσεως ιστοτόπου</a><a href="#top">Δήλωση προστασίας προσωπικών δεδομένων</a><a href="#top">Δήλωση αποποίησης ευθύνης</a><a href="#top">Όροι χρήσης cookies</a></div><p class="ctrl">Υπεύθυνη επεξεργασίας: Κωνσταντία Αδαμοπούλου, nadia.adamopoulou68@gmail.com</p></div></footer>';
+  }
+  function switcher() { return '';
+    if (!state.sw) return '<button type="button" class="swopen" data-act="swshow">ΕΠΙΛΟΓΕΣ</button>';
+    var g = function (label, key, opts, title) {
+      return '<div class="g" role="group" aria-label="' + label + '"><span class="gl">' + label + '</span>' + opts.map(function (k) {
+        return '<button type="button" class="vbtn' + (state[key] === k ? ' on' : '') + '" data-opt="' + key + ':' + k + '" aria-pressed="' + (state[key] === k) + '" title="' + esc(title[k]) + '">' + k + '</button>';
+      }).join('') + '</div>';
+    };
+    return '<div class="sw" role="region" aria-label="Επιλογές προς σύγκριση">' +
+      g('Αρχική', 'hero', ['1', '2', '3'], { '1': 'Αρχική 1: φωτογραφίες σε χρώμα, τίτλος κάτω αριστερά', '2': 'Αρχική 2: σαν το merso, τεράστιο όνομα (χωρίς το δέντρο)', '3': 'Αρχική 3: όνομα αριστερά, πίνακας δεξιά χωρίς τίποτα πάνω του' }) +
+      g('Τμήματα', 'layout', ['1', '2', '3'], { '1': 'Πλακάκια, κάθε πλακάκι ανοίγει τη σελίδα του', '2': 'Πλακάκια + μεγάλες ζώνες από κάτω', '3': 'Πλακάκια + όλο το κείμενο πάνω στις φωτογραφίες' }) +
+      '<button type="button" class="swx" data-act="swhide" aria-label="Απόκρυψη επιλογών">×</button></div>';
+  }
+  function lightbox() {
+    if (state.lb == null || !lbList.length) return '';
+    var g = lbList[state.lb];
+    return '<div class="lb" role="dialog" aria-modal="true" aria-label="' + esc(g.cap) + '"><button type="button" class="lbx" data-act="lbclose" aria-label="Κλείσιμο"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#171515" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>' +
+      (lbList.length > 1 ? '<button type="button" class="lbn lbp" data-act="lbprev" aria-label="Προηγούμενη">‹</button><button type="button" class="lbn lbnx" data-act="lbnext" aria-label="Επόμενη">›</button>' : '') +
+      '<img src="' + esc(g.src) + '" alt="' + esc(g.cap) + '"><span class="cap">' + esc(g.cap) + ' · ' + (state.lb + 1) + ' / ' + lbList.length + '</span></div>';
+  }
+  function view() {
+    var cur = sections.filter(function (c) { return c.id === state.page; })[0];
+    var main = cur ? detail(cur) : hero() + programma() + strips() + tiles() + (state.layout === '2' ? bands() : '') + (state.layout === '3' ? fbands() : '');
+    return header() + '<div class="promo" role="note"><div class="wrap"><span><b>1ο μάθημα δωρεάν</b> σε όλα τα τμήματα</span><span>· Κλείστε θέση: <a href="' + TEL + '">694 726 5957</a></span></div></div>' + '<main>' + main + '</main>' + contact() + switcher() + lightbox();
+  }
+
+  // ---- events ----
+  function bind() {
+    var app = document.getElementById('app');
+    app.onclick = function (e) {
+      var t = e.target.closest('[data-sec],[data-page],[data-act],[data-opt],[data-dot],[data-lb]');
+      if (!t) return;
+      if (t.dataset.sec) { e.preventDefault(); openSec(t.dataset.sec); }
+      else if (t.dataset.page) { go(t.dataset.page); }
+      else if (t.dataset.opt) {
+        var kv = t.dataset.opt.split(':'); var patch = {}; patch[kv[0]] = kv[1]; patch.page = 'home'; patch.navOpen = false;
+        store.set('et-' + kv[0], kv[1]); set(patch);
+        if (kv[0] === 'layout') { var el = document.getElementById('tmimata'); if (el) el.scrollIntoView({ behavior: 'auto' }); } else window.scrollTo(0, 0);
+      }
+      else if (t.dataset.dot) { state.idx = state.idx - (state.idx % 10) + Number(t.dataset.dot); syncSlides(); }
+      else if (t.dataset.lb) { openLb(window.__pics || [], Number(t.dataset.lb)); }
+      else {
+        var a = t.dataset.act;
+        if (a === 'top') goAnchor('top');
+        else if (a === 'home') go('home');
+        else if (a === 'nav') set({ navOpen: !state.navOpen });
+        else if (a === 'swhide') { store.set('et-sw', '0'); set({ sw: false }); }
+        else if (a === 'swshow') { store.set('et-sw', '1'); set({ sw: true }); }
+        else if (a === 'lbclose') set({ lb: null });
+        else if (a === 'lbprev') set({ lb: (state.lb - 1 + lbList.length) % lbList.length });
+        else if (a === 'lbnext') set({ lb: (state.lb + 1) % lbList.length });
+      }
+    };
+  }
+  document.addEventListener('keydown', function (e) {
+    if (state.lb == null) return;
+    if (e.key === 'Escape') set({ lb: null });
+    else if (e.key === 'ArrowRight') set({ lb: (state.lb + 1) % lbList.length });
+    else if (e.key === 'ArrowLeft') set({ lb: (state.lb - 1 + lbList.length) % lbList.length });
+  });
+
+  // ---- slideshows: toggle classes only, so open "read more" sections stay open ----
+  function syncSlides() {
+    var groups = {};
+    document.querySelectorAll('[data-g]').forEach(function (el) { (groups[el.dataset.g] = groups[el.dataset.g] || []).push(el); });
+    var k = 0;
+    Object.keys(groups).forEach(function (g) {
+      var els = groups[g], n = els.length, off = g === 'hero' || g === 'herodot' ? 0 : (k++);
+      var cur = (state.idx + off) % n;
+      els.forEach(function (el, j) { el.classList.toggle('on', j === cur); });
+      var cnt = document.querySelector('[data-count="' + g + '"]');
+      if (cnt) cnt.textContent = pad(cur + 1) + ' / ' + pad(n);
+      if (g === 'hero') {
+        var c = document.querySelector('[data-cap="hero"]'); var d = data.slideData[cur];
+        if (c && d) c.innerHTML = '<em>' + esc(d[1]) + '</em> · ' + esc(d[2]);
+        document.querySelectorAll('[data-dot]').forEach(function (b, j) { b.setAttribute('aria-current', j === cur ? 'true' : 'false'); });
+      }
+    });
+  }
+  var reduce = false;
+  try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+  if (!reduce) setInterval(function () { state.idx = (state.idx + 1) % 1260; syncSlides(); }, 5000);
+
+  render();
+})();
+</script>
+
+</body></html>
