@@ -169,15 +169,6 @@ button{font:inherit}
 .fpanel{width:100%;max-width:620px;box-sizing:border-box;background:rgba(17,15,14,.86);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#fff;padding:44px 44px 40px;display:flex;flex-direction:column;gap:20px;min-width:0}
 .fpanel .lead{font-size:19px}
 @media (max-width:760px){.band,.fband{min-height:0}.scrim,.band.rev .scrim{background:rgba(14,12,11,.8)}.bandin,.fin{padding-block:72px}.fpanel{padding:28px 22px}.count{display:none}}
-.more summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;padding:12px 0;font-size:17px;font-weight:800;color:var(--peach)}
-.more summary::-webkit-details-marker{display:none}
-.more summary .chev{transition:transform .25s ease}
-.more[open] summary .chev{transform:rotate(180deg)}
-.more .lbl-less{display:none}
-.more[open] .lbl-more{display:none}
-.more[open] .lbl-less{display:inline}
-.more .body{display:flex;flex-direction:column;gap:16px;padding-top:6px;animation:open .35s ease both}
-.band.plain .more summary{color:var(--deep)}
 @keyframes open{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 
 /* detail page */
@@ -416,7 +407,8 @@ button{font:inherit}
   // ---- actions ----
   function render() { document.getElementById('app').innerHTML = view(); bind(); syncSlides(); }
   function set(patch) { Object.keys(patch).forEach(function (k) { state[k] = patch[k]; }); render(); }
-  function go(page) { set({ page: page, navOpen: false, lb: null }); window.scrollTo(0, 0); }
+  function go(page) { set({ page: page, navOpen: false, lb: null }); jumpTop(); }
+  function jumpTop() { var r = document.documentElement, sb = r.style.scrollBehavior; r.style.scrollBehavior = 'auto'; window.scrollTo(0, 0); r.style.scrollBehavior = sb; }
   function goAnchor(id) {
     var was = state.page;
     set({ page: 'home', navOpen: false, lb: null });
@@ -501,11 +493,6 @@ button{font:inherit}
       days.map(function (d) { return '<div class="daycol"><span class="dlbl">' + d.day + '</span>' + d.slots.map(function (s) { return '<div class="slot"><b>' + s[0] + '</b><span>' + s[1].split(', ').map(function (x) { return '<span class="nw">' + esc(x) + '</span>'; }).join(', ') + '</span></div>'; }).join('') + '</div>'; }).join('') +
       '</div><p class="progx"><b>Φάκελος εξωτερικού:</b> εξατομικευμένη διδασκαλία, κατόπιν συνεννόησης.</p></div></section>';
   }
-  function moreBlock(c, cls) {
-    if (!c.more.length) return '';
-    return '<details class="more"><summary><span class="lbl-more">Διαβάστε όλο το κείμενο</span><span class="lbl-less">Λιγότερο κείμενο</span>' + chev('currentColor') + '</summary><div class="body">' +
-      c.more.map(function (p) { return '<p class="lead">' + esc(p) + '</p>'; }).join('') + '</div></details>';
-  }
   var facts = { ergastiri: 'Άγιος Στέφανος · από το 1993', sxedio: 'Υποψήφιοι πανελληνίων · Τετάρτη & Σάββατο', paidiko: 'Από 4 ετών · Παρασκευή 16.00, 17.30 ή 19.00 · 1,5 ώρα', enilikes: 'Τετάρτη 17.00–20.00 · Σάββατο πρωί ή μεσημέρι', kalon: 'Υποψήφιοι Σχολών Καλών Τεχνών · Τετάρτη & Σάββατο', fakelos: 'Εξατομικευμένα, κατόπιν συνεννόησης', nadia: 'Ζωγράφος · Πτυχίο ΑΣΚΤ με άριστα' };
   var factsLine = function (c) { return facts[c.id] ? '<p class="tfacts">' + esc(facts[c.id]) + '</p>' : ''; };
   function eyebrow(c) { return ''; }
@@ -524,8 +511,8 @@ button{font:inherit}
       var ids = c.list.length ? c.list.map(function (id) { return B + id + '.jpg'; }) : [c.img];
       return '<section id="' + c.id + '" class="fband ' + c.rev + '">' + slidesHtml(ids, 'f-' + c.id) +
         '<div class="fscrim" aria-hidden="true"></div><div class="wrap fin"><div class="fpanel rv">' + eyebrow(c) +
-        '<h2 class="bh2" style="font-size:clamp(32px,3.6vw,46px)">' + esc(c.title) + '</h2>' + factsLine(c) + '<p class="lead">' + esc(c.lead) + '</p>' + moreBlock(c) +
-        '<div style="display:flex;flex-wrap:wrap;gap:10px 18px;padding-top:4px"><button type="button" class="morebtn" data-page="' + c.id + '">' + c.photoBtn + ' <span aria-hidden="true">→</span></button><span class="morehint">' + c.photoHint + '</span></div>' +
+        '<h2 class="bh2" style="font-size:clamp(32px,3.6vw,46px)">' + esc(c.title) + '</h2>' + factsLine(c) + '<p class="lead">' + esc(c.lead) + '</p>' +
+        '<div style="display:flex;flex-wrap:wrap;gap:10px 18px;padding-top:4px"><button type="button" class="morebtn" data-page="' + c.id + '">Λεπτομέρειες &amp; φωτογραφίες <span aria-hidden="true">→</span></button></div>' +
         '</div></div>' + (c.list.length ? '<div class="count" aria-hidden="true" data-count="f-' + c.id + '"></div>' : '') + '</section>';
     }).join('');
   }
