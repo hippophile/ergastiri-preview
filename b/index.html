@@ -409,7 +409,7 @@ button{font:inherit}
   function render() { document.getElementById('app').innerHTML = view(); bind(); syncSlides(); }
   function set(patch) { Object.keys(patch).forEach(function (k) { state[k] = patch[k]; }); render(); }
   function go(page) { set({ page: page, navOpen: false, lb: null }); jumpTop(); }
-  function jumpTop() { var r = document.documentElement, sb = r.style.scrollBehavior; r.style.scrollBehavior = 'auto'; window.scrollTo(0, 0); r.style.scrollBehavior = sb; }
+  function jumpTop() { window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); }
   function goAnchor(id) {
     var was = state.page;
     set({ page: 'home', navOpen: false, lb: null });
