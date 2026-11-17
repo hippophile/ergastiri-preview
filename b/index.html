@@ -199,8 +199,6 @@ button{font:inherit}
 .aside{flex:1 1 300px;min-width:0;position:sticky;top:calc(var(--hdr) + 24px);display:flex;flex-direction:column;gap:16px}
 .abox{background:var(--ink);color:#fff;border-top:3px solid var(--orange);padding:26px 28px;display:flex;flex-direction:column;gap:10px;font-size:18px;line-height:1.7}
 .albl{font-size:12px;font-weight:800;letter-spacing:.2em;color:var(--orange)}
-.xbox{background:var(--cream);padding:24px 26px;display:flex;flex-direction:column;gap:10px}
-.xbox ul{margin:0;padding-left:18px;font-size:17px;line-height:1.9;color:var(--body)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px 12px}
 .thumb{background:none;border:0;padding:0;cursor:zoom-in;display:flex;flex-direction:column;gap:8px;text-align:left;min-width:0}
 .thumb .im{overflow:hidden;display:block;background:#EFEAE2}
@@ -303,17 +301,16 @@ button{font:inherit}
       on: i === idx ? 'on' : '', hidden: i === idx ? 'false' : 'true', current: i === idx ? 'true' : 'false',
       pick: () => self.setState({ idx: tick - idx + i })
     }));
-    const consent = 'Οι φωτογραφίες του τμήματος δείχνουν μαθητές (και παιδιά): μπαίνουν στο site μόνο με γραπτή συναίνεση. Στο mockup δεν εμφανίζονται.';
     const galleries = {
-      studio: { title: 'Φωτογραφίες του Εργαστηρίου', items: [pic('b3d4edf787024794af754c45ec0e82fa', 'Η βιτρίνα του Εργαστηρίου')], note: 'Οι υπόλοιπες φωτογραφίες του χώρου δείχνουν μαθητές και παιδιά — χρειάζεται συναίνεση πριν μπουν στο site.' },
+      studio: { title: 'Φωτογραφίες του Εργαστηρίου', items: [pic('b3d4edf787024794af754c45ec0e82fa', 'Η βιτρίνα του Εργαστηρίου')], note: '' },
       free: { title: 'Έργα ελευθέρου σχεδίου', items: [pic('46456967266bca58e1ac2ad15281c59a', 'Σχέδιο: καρέκλα'), pic('aa7f039d4a4cd8872d73fac0fe79905b', 'Σχέδιο: νεκρή φύση'), pic('0b8c1d2bd8e5c866d35299712d70ad24', 'Σχέδιο: σκαμπό με φακό'), pic('13204fb2ca0f3b1a44e0e527d5367e01', 'Σχέδιο: σκαμπό με σχοινί')], note: '' },
       linear: { title: 'Έργα γραμμικού σχεδίου', items: [pic('d878f193807f6654e80380905e723224', 'Γραμμικό σχέδιο'), pic('4716d51cd0f1ac72c1810efd17752ff5', 'Γραμμικό σχέδιο'), pic('6d3d31765c59fb96b215b66c79cbfd16', 'Γραμμικό σχέδιο')], note: '' },
-      sxedioClass: { title: 'Φωτογραφίες του τμήματος Ελεύθερου &amp; Γραμμικού', items: [], note: consent },
+      sxedioClass: { title: 'Φωτογραφίες του τμήματος Ελεύθερου &amp; Γραμμικού', items: [], note: '' },
       kids: { title: 'Έργα του Παιδικού – Εφηβικού τμήματος', items: [pic('660ac41c38013ed07173016923425518', 'Έργο παιδιού'), pic('7fbfdf49270116a7333698dc6f1396e8', 'Έργο παιδιού'), pic('75780533a97af3312ba732a9b4f10a27', 'Έργο παιδιού'), pic('e2e67921935ed905ee409b943e508b81', 'Έργο παιδιού'), pic('60281dfe2baf9448c37703cd33644c0e', 'Έργο παιδιού'), pic('3dcbf6bff2953394761edd0914767939', 'Έργο παιδιού'), pic('c31bc084c328ce9269d9397f041bcbcf', 'Έργο παιδιού'), pic('f8405f56fd3c7b753b930336f982ab69', 'Έργο παιδιού'), pic('a1d263d9167a45890fe3e44bfad86748', 'Έργο παιδιού')], note: '' },
-      kidsClass: { title: 'Φωτογραφίες του Παιδικού – Εφηβικού τμήματος', items: [], note: consent },
+      kidsClass: { title: 'Φωτογραφίες του Παιδικού – Εφηβικού τμήματος', items: [], note: '' },
       adults: { title: 'Έργα και φωτογραφίες του τμήματος Ενηλίκων', items: [pic('aa2a643b25fce2211254fab49117ac27', 'Έργο, τμήμα Ενηλίκων'), pic('e170b5a192999d29e617323774c8f5e3', 'Έργο, τμήμα Ενηλίκων'), pic('e1e57815ba8d4c353f3aa8de197611ca', 'Έργο, τμήμα Ενηλίκων')], note: '' },
       kalon: { title: 'Έργα και φωτογραφίες του τμήματος Καλών Τεχνών', items: [pic('022916f6d76ff6ffb166cf5088a8ab9b', 'Έργο, τμήμα Καλών Τεχνών'), pic('00832fe3b1aaa999976222f8b4eed628', 'Έργο, τμήμα Καλών Τεχνών'), pic('09a94944756566b976dee326d72e4cbd', 'Έργο, τμήμα Καλών Τεχνών')], note: '' },
-      nadia: { title: 'Έργα της Νάντιας Αδαμοπούλου', items: [pic('1a326213ba1bf351658b2c9c12c227d9', '150 × 200 cm'), pic('3217043e5218a051e094132efcb1faa2', '130 × 180 cm'), pic('d63e4484bf1f433a920e764de803cc18', '90 × 130 cm'), pic('f6fab627ffa5cb381bc2109db0fee2f6', '130 × 90 cm'), pic('a0fdc384aa00a9590a2a7fdc474a3788', '120 × 180 cm'), pic('246ad2ffbb4e849ed11dfb11d6fb1e77', '150 × 90 cm'), pic('03f5d74beb9147be058a98e16eb3f5a9', '150 × 200 cm'), pic('43b521631a45de3ac4189e5f8c62fb42', '150 × 100 cm'), pic('dc24854c88b89b5ec7b2c83f8f8b7c65', '60 × 60 cm')], note: 'Φωτογραφίες έργων: Spiridon Kotsiopoulos' }
+      nadia: { title: 'Έργα της Νάντιας Αδαμοπούλου', items: [pic('1a326213ba1bf351658b2c9c12c227d9', '150 × 200 cm'), pic('3217043e5218a051e094132efcb1faa2', '130 × 180 cm'), pic('d63e4484bf1f433a920e764de803cc18', '90 × 130 cm'), pic('f6fab627ffa5cb381bc2109db0fee2f6', '130 × 90 cm'), pic('a0fdc384aa00a9590a2a7fdc474a3788', '120 × 180 cm'), pic('246ad2ffbb4e849ed11dfb11d6fb1e77', '150 × 90 cm'), pic('03f5d74beb9147be058a98e16eb3f5a9', '150 × 200 cm'), pic('43b521631a45de3ac4189e5f8c62fb42', '150 × 100 cm'), pic('dc24854c88b89b5ec7b2c83f8f8b7c65', '60 × 60 cm')], note: '' }
     };
     const link = (label, key) => ({ label: label, open: () => self.setState({ gal: key }) });
     const sec = (o) => Object.assign({ more: [], links: [], when: '' }, o);
@@ -390,13 +387,13 @@ button{font:inherit}
   var labels = { ergastiri: 'ΤΟ ΕΡΓΑΣΤΗΡΙ', sxedio: 'ΠΑΝΕΛΛΗΝΙΕΣ', paidiko: 'ΑΠΟ 4 ΕΤΩΝ', enilikes: 'ΓΙΑ ΕΝΗΛΙΚΕΣ', kalon: 'ΣΧΟΛΕΣ ΚΑΛΩΝ ΤΕΧΝΩΝ', fakelos: 'ΣΠΟΥΔΕΣ ΕΞΩΤΕΡΙΚΟΥ', nadia: 'Η ΔΑΣΚΑΛΑ' };
   var naIds = ['61033518132d89d38e320a6585ad1106', '2c63da6e97ec955fc0726eb509374e1d', 'c4cb85f734fca9119917e8e4ad20f552', '9ed2f9927cb6c835820c9a7b021db526', '58e2aa2bf8ab713ad3213637730cd688', 'b54c5112bb2d4da7cfe4834cb55ac23f', '8efdffbede0137fd016c3b92d04df081', '741be317dd73f8e79554faa509b48587', 'cdaa9edf98bf313c09a7ec27f1ea4a40', 'f7027662cb6465683409541b6719d99b'];
   var pageData = {
-    ergastiri: { pics: ['b3d4edf787024794af754c45ec0e82fa'], cap: 'Η βιτρίνα του Εργαστηρίου', note: 'Οι υπόλοιπες φωτογραφίες του χώρου δείχνουν μαθητές και παιδιά — μπαίνουν μόνο με γραπτή συναίνεση.', extra: ['Ο χώρος και ο εξοπλισμός', 'Οι διδάσκουσες', 'Ώρες γραμματείας'] },
-    sxedio: { pics: bgs.sxedio.concat(['46456967266bca58e1ac2ad15281c59a', 'aa7f039d4a4cd8872d73fac0fe79905b', '0b8c1d2bd8e5c866d35299712d70ad24', '13204fb2ca0f3b1a44e0e527d5367e01']), cap: 'Ελεύθερο – Γραμμικό · έργο μαθητή', note: 'Οι φωτογραφίες του τμήματος (με μαθητές) μπαίνουν μόνο με γραπτή συναίνεση.', extra: ['Δίδακτρα', 'Όργανα και υλικά που χρειάζονται', 'Αποτελέσματα πανελληνίων ανά χρονιά', 'Πότε γίνονται οι προσομοιώσεις'] },
-    paidiko: { pics: bgs.paidiko.concat(['e2e67921935ed905ee409b943e508b81', '60281dfe2baf9448c37703cd33644c0e', 'c31bc084c328ce9269d9397f041bcbcf', 'f8405f56fd3c7b753b930336f982ab69', 'a1d263d9167a45890fe3e44bfad86748']), cap: 'Παιδικό – Εφηβικό · έργο μαθητή', note: 'Οι φωτογραφίες του τμήματος (με παιδιά) μπαίνουν μόνο με γραπτή συναίνεση των γονέων.', extra: ['Δίδακτρα', 'Ηλικιακές ομάδες ανά ώρα', 'Υλικά: τα δίνει το Εργαστήρι ή τα φέρνει το παιδί;', 'Κλείσιμο δοκιμαστικού μαθήματος'] },
+    ergastiri: { pics: ['b3d4edf787024794af754c45ec0e82fa'], cap: 'Η βιτρίνα του Εργαστηρίου', note: '', extra: ['Ο χώρος και ο εξοπλισμός', 'Οι διδάσκουσες', 'Ώρες γραμματείας'] },
+    sxedio: { pics: bgs.sxedio.concat(['46456967266bca58e1ac2ad15281c59a', 'aa7f039d4a4cd8872d73fac0fe79905b', '0b8c1d2bd8e5c866d35299712d70ad24', '13204fb2ca0f3b1a44e0e527d5367e01']), cap: 'Ελεύθερο – Γραμμικό · έργο μαθητή', note: '', extra: ['Δίδακτρα', 'Όργανα και υλικά που χρειάζονται', 'Αποτελέσματα πανελληνίων ανά χρονιά', 'Πότε γίνονται οι προσομοιώσεις'] },
+    paidiko: { pics: bgs.paidiko.concat(['e2e67921935ed905ee409b943e508b81', '60281dfe2baf9448c37703cd33644c0e', 'c31bc084c328ce9269d9397f041bcbcf', 'f8405f56fd3c7b753b930336f982ab69', 'a1d263d9167a45890fe3e44bfad86748']), cap: 'Παιδικό – Εφηβικό · έργο μαθητή', note: '', extra: ['Δίδακτρα', 'Ηλικιακές ομάδες ανά ώρα', 'Υλικά: τα δίνει το Εργαστήρι ή τα φέρνει το παιδί;', 'Κλείσιμο δοκιμαστικού μαθήματος'] },
     enilikes: { pics: bgs.enilikes, cap: 'Τμήμα Ενηλίκων · έργο μαθητή', note: '', extra: ['Δίδακτρα', 'Επίπεδα (αρχάριοι / προχωρημένοι)', 'Μαθήματα αγιογραφίας'] },
     kalon: { pics: bgs.kalon, cap: 'Τμήμα Καλών Τεχνών · έργο μαθητή', note: '', extra: ['Δίδακτρα', 'Επιτυχίες στην ΑΣΚΤ ανά χρονιά', 'Η συλλογή εκμαγείων'] },
-    fakelos: { pics: [], cap: '', note: 'Λείπουν φωτογραφίες φακέλων (portfolio) — να ζητηθούν από το Εργαστήρι.', extra: ['Σχολές του εξωτερικού όπου έχουν γίνει δεκτοί μαθητές', 'Διάρκεια προετοιμασίας', 'Κόστος'] },
-    nadia: { pics: naIds, cap: 'Έργο της Νάντιας Αδαμοπούλου', note: 'Φωτογραφίες έργων: Spiridon Kotsiopoulos', extra: ['Λίστα εκθέσεων', 'Πινακοθήκες και συλλογές', 'Επικοινωνία για αγορά έργων'] }
+    fakelos: { pics: [], cap: '', note: '', extra: ['Σχολές του εξωτερικού όπου έχουν γίνει δεκτοί μαθητές', 'Διάρκεια προετοιμασίας', 'Κόστος'] },
+    nadia: { pics: naIds, cap: 'Έργο της Νάντιας Αδαμοπούλου', note: '', extra: ['Λίστα εκθέσεων', 'Πινακοθήκες και συλλογές', 'Επικοινωνία για αγορά έργων'] }
   };
   var days = [
     { day: 'ΤΕΤΑΡΤΗ', slots: [['17.00–20.00', 'Ελεύθερο Σχέδιο, Ενηλίκων, Καλών Τεχνών']] },
@@ -541,7 +538,7 @@ button{font:inherit}
       '<div class="dscrim" aria-hidden="true"></div><div class="wrap dheroin"><button type="button" class="back" data-act="home">← Αρχική</button>' + eyebrow(c) + '<h1 class="dh1">' + esc(c.title) + '</h1>' + factsLine(c) + '</div></section>' +
       '<section class="wrap dbody"><div class="dtext"><p class="first">' + esc(c.lead) + '</p>' + c.more.map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('') + '</div>' +
       '<aside class="aside">' + (c.when ? '<div class="abox"><span class="albl">ΠΡΟΓΡΑΜΜΑ</span><span>' + esc(c.when) + '</span><a class="ctabtn" style="text-align:center;margin-top:6px" href="' + TEL + '">Κλείστε θέση · 694 726 5957</a><div class="msgrow"><span>ή μήνυμα:</span><a class="msg" href="' + VIBER + '">Viber</a><a class="msg" href="' + WA + '">WhatsApp</a></div></div>' : '') +
-      '<div class="xbox"><span class="albl" style="color:var(--deep)">ΕΠΙΠΛΕΟΝ ΠΛΗΡΟΦΟΡΙΕΣ</span><ul>' + p.extra.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div></aside></section>' +
+      '</aside></section>' +
       '<section class="wrap" style="padding-bottom:96px"><div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px;margin-bottom:28px"><h2 style="margin:0;font-size:40px;font-weight:800;letter-spacing:-.02em">Φωτογραφίες</h2><span style="font-size:17px;color:#7A726A">' + (p.pics.length ? p.pics.length + (p.pics.length === 1 ? ' φωτογραφία' : ' φωτογραφίες') + ' · πατήστε για μεγέθυνση' : '') + '</span></div>' +
       (p.pics.length ? '<div class="grid">' + pics.map(function (g, j) { return '<button type="button" class="thumb" data-lb="' + j + '" aria-label="Μεγέθυνση: ' + esc(g.cap) + ' ' + (j + 1) + '"><span class="im"><img src="' + esc(g.src) + '" alt="' + esc(g.cap) + '" loading="lazy" decoding="async"></span><span class="cap">' + esc(g.cap) + '</span></button>'; }).join('') + '</div>' : '') +
       (p.note ? '<p class="note">' + esc(p.note) + '</p>' : '') + '</section>' +
